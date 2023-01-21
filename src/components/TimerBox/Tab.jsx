@@ -2,33 +2,33 @@ import { Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
 import { useTheme } from "@emotion/react";
-// import { useState } from "react";
+import { useState } from "react";
 
 const Tab = ({ getTab }) => {
-  //   const [active, setActive] = useState();
-  const tabs = [
+  const theme = useTheme();
+  const [tabs, setTabs] = useState([
     {
       name: "Pomodoro",
       minute: 25,
       second: 0,
-      themeColor: useTheme().palette.red.main,
+      themeColor: theme.palette.red.main,
       isActive: true,
     },
     {
       name: "Short Break",
       minute: 5,
       second: 0,
-      themeColor: useTheme().palette.cyan.main,
+      themeColor: theme.palette.cyan.main,
       isActive: false,
     },
     {
       name: "Long Break",
       minute: 15,
       second: 0,
-      themeColor: useTheme().palette.blue.main,
+      themeColor: theme.palette.blue.main,
       isActive: false,
     },
-  ];
+  ]);
 
   return (
     <Stack direction="row">
@@ -41,16 +41,21 @@ const Tab = ({ getTab }) => {
             backgroundColor: value.isActive === true ? "#0000002b" : null,
           }}
           onClick={() => {
-            getTab(index, value.minute, value.second, value.themeColor);
-            tabs.map((tab) =>
-              tab.name === value.name
-                ? { ...tab, isActive: true }
-                : { ...tab, isActive: false }
+            getTab(value.minute, value.second, value.themeColor);
+            setTabs(
+              tabs.map((tab) =>
+                tab.name === value.name
+                  ? { ...tab, isActive: true }
+                  : { ...tab, isActive: false }
+              )
             );
-            console.log(tabs);
           }}
         >
-          <Typography color="white" textTransform="capitalize">
+          <Typography
+            color="white"
+            textTransform="capitalize"
+            fontWeight={value.isActive === true ? "bold" : null}
+          >
             {value.name}
           </Typography>
         </Button>

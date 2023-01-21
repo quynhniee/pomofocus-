@@ -3,22 +3,25 @@ import { Container, Stack } from "@mui/system";
 import { useState } from "react";
 import Header from "./components/Header";
 import TabBox from "./components/TabBox";
+import TasksList from "./components/TasksList";
 
 function App() {
-  const [theme, setTheme] = useState(useTheme().palette.red.main);
-  const getTheme = (data) => setTheme(data);
+  const theme = useTheme();
+  const [themeColor, setThemeColor] = useState(theme.palette.red.main);
+  const getThemeColor = (data) => setThemeColor(data);
   return (
     <Stack
       sx={{
-        backgroundColor: theme,
+        backgroundColor: themeColor,
         minHeight: "100vh",
         transition: "0.7s all ease",
       }}
     >
       <Container maxWidth="sm">
         <Header />
-        <Stack sx={{ mx: { md: 4, sm: 2 }, my: 4 }}>
-          <TabBox themeColor={theme} getTheme={getTheme} />
+        <Stack sx={{ mx: { md: 4, sm: 2 }, my: 4 }} spacing={2}>
+          <TabBox themeColor={themeColor} getTheme={getThemeColor} />
+          <TasksList />
         </Stack>
       </Container>
     </Stack>

@@ -13,8 +13,7 @@ const TabBox = ({ themeColor, getTheme }) => {
   const [minute, setMinute] = useState(25);
   const [second, setSecond] = useState(0);
   const getTab = (...props) => {
-    const [index, initialMinute, initialSecond, themeColor] = props;
-    console.log(index, initialMinute, initialSecond);
+    const [initialMinute, initialSecond, themeColor] = props;
     setMinute(initialMinute);
     setSecond(initialSecond);
     getTheme(themeColor);
@@ -36,19 +35,16 @@ const TabBox = ({ themeColor, getTheme }) => {
     return () => clearInterval(timerInterval);
   }, [active, minute, second]);
   return (
-    <>
-      <Stack
-        sx={{ backgroundColor: "#ffffff2b", borderRadius: "0.3rem" }}
-        padding={2}
-        paddingBottom={3}
-        alignItems="center"
-      >
-        <Tab getTab={getTab} />
-        <CountDown minute={minute} second={second} />
-        <TimerButton themeColor={themeColor} getActive={getActive} />
-      </Stack>
-      <Stack direction="row" justifyContent="space-between"></Stack>
-    </>
+    <Stack
+      sx={{ backgroundColor: "#ffffff2b", borderRadius: "0.3rem" }}
+      padding={2}
+      paddingBottom={3}
+      alignItems="center"
+    >
+      <Tab getTab={getTab} />
+      <CountDown minute={minute} second={second} />
+      <TimerButton themeColor={themeColor} getActive={getActive} />
+    </Stack>
   );
 };
 

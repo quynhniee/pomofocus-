@@ -6,9 +6,9 @@ const CountDown = (props) => {
 
   return (
     <Typography
-      variant="h1"
+      // variant="h1"
       fontWeight="bold"
-      sx={{ transform: "translate(0, 25%)" }}
+      sx={{ transform: "translate(0, 15%)", fontSize: "7rem" }}
     >
       {minute < 10 ? `0${minute}` : minute}:
       {second < 10 ? `0${second}` : second}
