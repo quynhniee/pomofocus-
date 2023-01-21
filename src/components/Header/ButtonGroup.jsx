@@ -4,29 +4,29 @@ import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Typography } from "@mui/material";
-import CustomButton from "../CustomButton";
+import LightButton from "../LightButton";
 
 const ButtonGroup = () => {
   return (
     <Stack direction="row" spacing={1}>
-      <CustomButton>
+      <LightButton>
         <AssessmentOutlinedIcon fontSize="small" />
         <Typography fontWeight="light" fontSize="small" ml={0.2}>
           Report
         </Typography>
-      </CustomButton>
-      <CustomButton>
+      </LightButton>
+      <LightButton>
         <SettingsIcon fontSize="small" />
         <Typography fontWeight="light" fontSize="small" ml={0.2}>
           Setting
         </Typography>
-      </CustomButton>
-      <CustomButton>
+      </LightButton>
+      <LightButton>
         <AccountCircleIcon fontSize="small" />
         <Typography fontWeight="light" fontSize="small" ml={0.2}>
           Login
         </Typography>
-      </CustomButton>
+      </LightButton>
     </Stack>
   );
 };

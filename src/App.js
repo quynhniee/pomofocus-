@@ -2,6 +2,7 @@ import { useTheme } from "@emotion/react";
 import { Container, Stack } from "@mui/system";
 import { useState } from "react";
 import Header from "./components/Header";
+import Result from "./components/Result";
 import TabBox from "./components/TabBox";
 import TasksList from "./components/TasksList";
 
@@ -22,6 +23,7 @@ function App() {
         <Stack sx={{ mx: { md: 4, sm: 2 }, my: 4 }} spacing={2}>
           <TabBox themeColor={themeColor} getTheme={getThemeColor} />
           <TasksList />
+          <Result />
         </Stack>
       </Container>
     </Stack>

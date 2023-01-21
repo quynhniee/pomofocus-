@@ -13,7 +13,8 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
-import TaskMenu from "./TaskMenu";
+import TaskMenu from "./Task/TaskMenu";
+import AddTaskButton from "./Task/AddTaskButton";
 
 const TasksList = () => {
   const [tasks, setTasks] = useState([
@@ -90,6 +91,7 @@ const TasksList = () => {
           </ListItem>
         ))}
       </List>
+      <AddTaskButton />
     </Box>
   );
 };

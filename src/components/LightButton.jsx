@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-const CustomButton = ({ children, padding }) => {
+const LightButton = ({ children, padding, handleClick }) => {
   return (
     <Button
       sx={{
@@ -11,10 +11,11 @@ const CustomButton = ({ children, padding }) => {
         minWidth: 0,
         padding: padding,
       }}
+      onClick={handleClick}
     >
       {children}
     </Button>
   );
 };
 
-export default CustomButton;
+export default LightButton;
