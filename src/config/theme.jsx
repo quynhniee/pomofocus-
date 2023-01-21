@@ -20,6 +20,9 @@ const CustomTheme = ({ children }) => {
     typography: {
       fontSize: 12,
     },
+    components: {
+      MuiToggleButtonGroup: {},
+    },
   };
   const theme = createTheme(themeConfig);
   return (

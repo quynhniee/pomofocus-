@@ -1,58 +1,54 @@
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import React from "react";
-import { useState } from "react";
-import Tab from "./Tab";
-import TabPanel from "./TabPanel";
+import { useEffect, useState } from "react";
+import CountDown from "./TimerBox/CountDown";
+import Tab from "./TimerBox/Tab";
+import TimerButton from "./TimerBox/TimerButton";
 
-const TabBox = ({ themeColor }) => {
+const TabBox = ({ themeColor, getTheme }) => {
   const [active, setActive] = useState(false);
-  const clickHandle = () => {
-    setActive(!active);
+  const getActive = (data) => {
+    setActive(data);
   };
+  const [minute, setMinute] = useState(25);
+  const [second, setSecond] = useState(0);
+  const getTab = (...props) => {
+    const [index, initialMinute, initialSecond, themeColor] = props;
+    console.log(index, initialMinute, initialSecond);
+    setMinute(initialMinute);
+    setSecond(initialSecond);
+    getTheme(themeColor);
+  };
+
+  useEffect(() => {
+    const timerInterval =
+      active === true
+        ? setInterval(() => {
+            if (second > 0) setSecond(second - 1);
+            else {
+              if (minute > 0) {
+                setMinute(minute - 1);
+                setSecond(59);
+              } else clearInterval(timerInterval);
+            }
+          }, 1000)
+        : null;
+    return () => clearInterval(timerInterval);
+  }, [active, minute, second]);
   return (
-    <Stack
-      sx={{ backgroundColor: "#ffffff2b", borderRadius: "0.3rem" }}
-      padding={2}
-      paddingBottom={3}
-      alignItems="center"
-    >
-      <Tab />
-      <TabPanel />
-      <Stack position="relative">
-        <Button
-          sx={{
-            width: "10rem",
-            height: "3.5rem",
-            backgroundColor: "#ebebeb",
-            transform: "translate(0, 100%)",
-          }}
-          disabled
-        ></Button>
-        <Button
-          sx={{
-            backgroundColor: "white",
-            ":hover": { backgroundColor: "white" },
-            width: "10rem",
-            height: "3.5rem",
-            xIndex: "3",
-            transform: active === false ? "translate(0, -0.4rem)" : "",
-            transition: "0.2s all ease",
-          }}
-          onClick={clickHandle}
-          disableRipple
-        >
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            color={themeColor}
-            px={5}
-            py={1}
-          >
-            {active === false ? "start" : "pause"}
-          </Typography>
-        </Button>
+    <>
+      <Stack
+        sx={{ backgroundColor: "#ffffff2b", borderRadius: "0.3rem" }}
+        padding={2}
+        paddingBottom={3}
+        alignItems="center"
+      >
+        <Tab getTab={getTab} />
+        <CountDown minute={minute} second={second} />
+        <TimerButton themeColor={themeColor} getActive={getActive} />
       </Stack>
-    </Stack>
+      <Stack direction="row" justifyContent="space-between"></Stack>
+    </>
   );
 };
 
