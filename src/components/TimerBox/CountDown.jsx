@@ -6,7 +6,7 @@ const CountDown = (props) => {
 
   return (
     <Typography
-      // variant="h1"
+      color="white"
       fontWeight="bold"
       sx={{ transform: "translate(0, 15%)", fontSize: "7rem" }}
     >

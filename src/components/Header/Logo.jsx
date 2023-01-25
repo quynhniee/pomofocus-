@@ -4,7 +4,7 @@ import { Stack, Typography } from "@mui/material";
 
 const Logo = () => {
   return (
-    <Stack direction="row" spacing={0.5} alignItems="center">
+    <Stack direction="row" spacing={0.5} alignItems="center" color="white">
       <CheckCircleRoundedIcon />
       <Typography variant="h6">Pomofocus</Typography>
     </Stack>

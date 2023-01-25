@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Typography } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-const AddTaskButton = () => {
+const AddTaskButton = ({ getExpand }) => {
   return (
     <Button
       sx={{
@@ -15,6 +15,7 @@ const AddTaskButton = () => {
       }}
       fullWidth
       startIcon={<AddCircleIcon />}
+      onClick={() => getExpand(true)}
     >
       <Typography textTransform="capitalize" fontWeight="bold" fontSize={15}>
         Add Task

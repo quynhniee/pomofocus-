@@ -1,6 +1,6 @@
 import React from "react";
-import { ListItem, Button } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { ListItem } from "@mui/material";
+import TaskExpandButton from "./TaskExpandButton";
 
 const TaskItem = ({ tasks, getTasks, task, children }) => {
   const clickHandle = () => {
@@ -31,19 +31,7 @@ const TaskItem = ({ tasks, getTasks, task, children }) => {
         transform: task.isActive === true ? "translate(0, 2px)" : null,
       }}
       alignItems="center"
-      secondaryAction={
-        <Button
-          sx={{
-            color: "#999999",
-            border: "1px solid #DFDFDF",
-            p: 0,
-            minWidth: 0,
-            ":hover": { bgcolor: "#DFDFDF" },
-          }}
-        >
-          <MoreVertIcon fontSize="large" />
-        </Button>
-      }
+      secondaryAction={<TaskExpandButton />}
     >
       {children}
     </ListItem>

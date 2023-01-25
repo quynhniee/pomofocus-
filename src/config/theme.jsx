@@ -14,7 +14,7 @@ const CustomTheme = ({ children }) => {
         main: "#397097",
       },
       text: {
-        primary: "#ffffff",
+        primary: "#555555",
       },
     },
     typography: {
