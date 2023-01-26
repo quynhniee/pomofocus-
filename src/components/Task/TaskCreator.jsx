@@ -1,38 +1,67 @@
-import { Button, Input, Stack, Typography } from "@mui/material";
+import { Button, Card, CardActions, Input, Stack } from "@mui/material";
 import React from "react";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import useOnClickOutside from "../../hooks/clickOutside";
+import EstPomodoros from "./EstPomodoros";
 
-const TaskCreator = ({ getExpand }) => {
+const TaskCreator = ({ getExpand, task }) => {
   return (
-    <Stack
-      sx={{ bgcolor: "#ffffff" }}
-      paddingX={2.5}
-      paddingTop={4}
-      borderRadius={2}
-      ref={useOnClickOutside(() => getExpand(false))}
-    >
-      <Input
-        placeholder="What are you working on?"
-        sx={{
-          fontSize: "1.3rem",
-          fontWeight: "bold",
-          outline: null,
-          mb: 2,
-        }}
-      />
-      <Typography fontWeight="bold">Est Pomodoros</Typography>
-      <Stack direction="row" spacing={1}>
-        <Input defaultValue={1} type="number"></Input>
-        <Button variant="outlined" sx={{ py: 0, px: 0.5, minWidth: 0 }}>
-          <ArrowDropUpIcon fontSize="large" />
-        </Button>
-        <Button variant="outlined" sx={{ py: 0, px: 0.5, minWidth: 0 }}>
-          <ArrowDropDownIcon fontSize="large" />
-        </Button>
+    <Card ref={useOnClickOutside(() => getExpand(false))}>
+      <Stack spacing={2} marginTop={4} marginBottom={3} marginX={3}>
+        <Input
+          disableUnderline
+          fullWidth
+          placeholder="What are you working on?"
+          sx={{
+            fontSize: "1.3rem",
+            fontWeight: "bold",
+            outline: null,
+          }}
+          autoFocus
+          defaultValue={task.content}
+        />
+        <EstPomodoros defaultValue={task ? task.EP : 1} />
+        <Stack direction="row">
+          {["+ Add Note", "+ Add Project"].map((e, index) => (
+            <Button
+              key={index}
+              disableRipple
+              sx={{
+                textDecoration: "underline",
+                color: "#999999",
+                py: 0,
+                fontWeight: "bold",
+                ":hover": {
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                  color: "#888888",
+                  bgcolor: "#fff",
+                },
+              }}
+            >
+              {e}
+            </Button>
+          ))}
+        </Stack>
       </Stack>
-    </Stack>
+      <CardActions sx={{ bgcolor: "#efefef", py: 2, px: 3 }}>
+        <Button color="light" variant="contained" disableElevation>
+          delete
+        </Button>
+        <Stack direction="row" sx={{ ml: "auto" }}>
+          <Button
+            color="light"
+            variant="contained"
+            disableElevation
+            onClick={() => getExpand(false)}
+          >
+            cancel
+          </Button>
+          <Button color="dark" variant="contained" disableElevation>
+            save
+          </Button>
+        </Stack>
+      </CardActions>
+    </Card>
   );
 };
 

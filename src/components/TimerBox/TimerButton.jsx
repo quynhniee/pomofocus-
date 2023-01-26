@@ -28,6 +28,7 @@ const TimerButton = ({ themeColor, getActive }) => {
           xIndex: "3",
           transform: active === false ? "translate(0, -0.4rem)" : "",
           transition: "0.2s all ease",
+          textTransform: "uppercase",
         }}
         onClick={clickHandle}
         disableRipple

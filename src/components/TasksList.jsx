@@ -10,18 +10,29 @@ import TaskCreator from "./Task/TaskCreator";
 const TasksList = ({ themeColor }) => {
   const [expand, setExpand] = useState(false);
   const [tasks, setTasks] = useState([
-    { id: "12drrdasf", content: "task 1", isActive: false, isCompleted: false },
+    {
+      id: "12drrdasf",
+      content: "task 1",
+      isActive: false,
+      isCompleted: false,
+      Act: 0,
+      EP: 1,
+    },
     {
       id: "adsfwiqwe8",
       content: "task 2",
       isActive: false,
       isCompleted: false,
+      Act: 1,
+      EP: 3,
     },
     {
       id: "ad123qwe8",
       content: "task 3",
       isActive: false,
       isCompleted: false,
+      Act: 0,
+      EP: 2,
     },
   ]);
   const getTasks = (data) => {

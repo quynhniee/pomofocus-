@@ -2,13 +2,13 @@ import React from "react";
 import { Button } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-const TaskExpandButton = () => {
-  const clickHandle = (e) => {
-    e.stopPropagation();
-  };
+const TaskExpandButton = ({ onClick }) => {
+  // const clickHandle = (e) => {
+  //   e.stopPropagation();
+  // };
   return (
     <Button
-      onClick={clickHandle}
+      onClick={onClick}
       sx={{
         color: "#999999",
         border: "1px solid #DFDFDF",

@@ -53,7 +53,6 @@ const Tab = ({ getTab }) => {
         >
           <Typography
             color="white"
-            textTransform="capitalize"
             fontWeight={value.isActive === true ? "bold" : null}
           >
             {value.name}

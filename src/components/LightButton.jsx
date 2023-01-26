@@ -5,7 +5,6 @@ const LightButton = ({ children, padding, handleClick }) => {
   return (
     <Button
       sx={{
-        textTransform: "none",
         color: "white",
         backgroundColor: "#ffffff2b",
         minWidth: 0,

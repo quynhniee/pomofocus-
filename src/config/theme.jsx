@@ -1,9 +1,20 @@
 import { ThemeProvider } from "@emotion/react";
 import { createTheme, CssBaseline } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 const CustomTheme = ({ children }) => {
   const themeConfig = {
     palette: {
+      light: {
+        main: "none",
+        dark: grey[100],
+        contrastText: grey[600],
+      },
+      dark: {
+        main: "#333333",
+        dark: "#222222",
+        contrastText: "#fff",
+      },
       red: {
         main: "#ba4949",
       },
@@ -21,7 +32,13 @@ const CustomTheme = ({ children }) => {
       fontSize: 12,
     },
     components: {
-      MuiToggleButtonGroup: {},
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: "capitalize",
+          },
+        },
+      },
     },
   };
   const theme = createTheme(themeConfig);
