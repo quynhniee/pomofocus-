@@ -15,16 +15,22 @@ const TaskCreator = ({ getExpand, task, tasks, getTasks }) => {
         }
   );
   const [content, setContent] = useState(taskUpdate.content);
-  const getTaskUpdate = useCallback((data) => {
-    setTaskUpdate({ ...taskUpdate, act: data.act, EP: data.EP });
-    return;
-  }, []);
+  const getTaskUpdate = useCallback(
+    (data) => {
+      setTaskUpdate({ ...taskUpdate, act: data.act, EP: data.EP });
+      return;
+    },
+    [taskUpdate]
+  );
   const saveHandle = () => {
     const newTask = { ...taskUpdate, content: content };
-    task
-      ? getTasks(tasks.map((t) => (t.id === taskUpdate.id ? newTask : t)))
-      : getTasks(tasks.concat([newTask]));
+    if (task)
+      getTasks(tasks.map((t) => (t.id === taskUpdate.id ? newTask : t)));
+    else getTasks(tasks.concat([newTask]));
     getExpand(false);
+  };
+  const removeHandle = () => {
+    getTasks(tasks.filter((t) => t.id !== task.id));
   };
   return (
     <Card
@@ -71,7 +77,12 @@ const TaskCreator = ({ getExpand, task, tasks, getTasks }) => {
       </Stack>
       <CardActions sx={{ bgcolor: "#efefef", py: 2, px: 3 }}>
         {task ? (
-          <Button color="light" variant="contained" disableElevation>
+          <Button
+            color="light"
+            variant="contained"
+            disableElevation
+            onClick={removeHandle}
+          >
             delete
           </Button>
         ) : null}

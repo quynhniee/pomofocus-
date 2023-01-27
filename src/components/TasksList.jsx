@@ -46,7 +46,7 @@ const TasksList = ({ themeColor }) => {
         <Typography variant="h6" color="white">
           Tasks
         </Typography>
-        <TaskMenu />
+        <TaskMenu getTasks={getTasks} tasks={tasks} />
       </Stack>
       <Divider sx={{ bgcolor: "#ffffff80", height: "2px", my: "0.8rem" }} />
       <List>

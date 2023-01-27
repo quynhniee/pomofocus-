@@ -12,14 +12,25 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-const TaskMenu = () => {
+const TaskMenu = ({ getTasks, tasks }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const closeHandle = () => {
     setAnchorEl(null);
+  };
+  const clearActHandle = () => {
+    const newTasks = tasks.map((t) => {
+      return { ...t, act: 0 };
+    });
+    getTasks(newTasks);
+    closeHandle();
+  };
+  const clearAllHandle = () => {
+    getTasks([]);
+    closeHandle();
   };
   return (
     <>
@@ -30,9 +41,9 @@ const TaskMenu = () => {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={closeHandle}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={closeHandle}>
           <ListItemIcon>
             <DeleteOutlineIcon sx={{ color: "#000000" }} />
           </ListItemIcon>
@@ -40,21 +51,21 @@ const TaskMenu = () => {
             Clear finished tasks
           </ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={clearActHandle}>
           <ListItemIcon>
             <CheckIcon sx={{ color: "#000000" }} />
           </ListItemIcon>
           <ListItemText sx={{ color: "#000000" }}>
-            Clear finished tasks
+            Clear act pomodoros
           </ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={closeHandle}>
           <ListItemIcon>
             <SaveOutlinedIcon sx={{ color: "#000000" }} />
           </ListItemIcon>
           <ListItemText sx={{ color: "#000000" }}>Save as routine</ListItemText>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={closeHandle}>
           <ListItemIcon>
             <AddIcon sx={{ color: "#000000" }} />
           </ListItemIcon>
@@ -62,8 +73,12 @@ const TaskMenu = () => {
             Add from routines
           </ListItemText>
         </MenuItem>
-        <Divider component="li" sx={{ my: 3 }} color="#BBBBBB" />
-        <MenuItem onClick={handleClose}>
+        <Divider
+          component="li"
+          sx={{ mx: 2, my: "0 !important" }}
+          color="#BBBBBB"
+        />
+        <MenuItem onClick={clearAllHandle}>
           <ListItemIcon>
             <DeleteOutlineIcon sx={{ color: "#000000" }} />
           </ListItemIcon>

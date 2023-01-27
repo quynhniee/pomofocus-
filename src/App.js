@@ -20,7 +20,7 @@ function App() {
     >
       <Container maxWidth="sm">
         <Header />
-        <Stack sx={{ mx: { md: 4, sm: 2 }, my: 4 }} spacing={2}>
+        <Stack sx={{ mx: { md: 4, sm: 2 }, my: 4 }} spacing={3}>
           <TabBox themeColor={themeColor} getTheme={getThemeColor} />
           <TasksList themeColor={themeColor} />
           <Result />
