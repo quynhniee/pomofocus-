@@ -1,11 +1,36 @@
 import { Button, Card, CardActions, Input, Stack } from "@mui/material";
-import React from "react";
+import React, { useState, useCallback } from "react";
 import useOnClickOutside from "../../hooks/clickOutside";
 import EstPomodoros from "./EstPomodoros";
 
-const TaskCreator = ({ getExpand, task }) => {
+const TaskCreator = ({ getExpand, task, tasks, getTasks }) => {
+  const [taskUpdate, setTaskUpdate] = useState(
+    task
+      ? task
+      : {
+          id: "id" + new Date().getTime(),
+          content: "",
+          isActive: false,
+          isCompleted: false,
+        }
+  );
+  const [content, setContent] = useState(taskUpdate.content);
+  const getTaskUpdate = useCallback((data) => {
+    setTaskUpdate({ ...taskUpdate, act: data.act, EP: data.EP });
+    return;
+  }, []);
+  const saveHandle = () => {
+    const newTask = { ...taskUpdate, content: content };
+    task
+      ? getTasks(tasks.map((t) => (t.id === taskUpdate.id ? newTask : t)))
+      : getTasks(tasks.concat([newTask]));
+    getExpand(false);
+  };
   return (
-    <Card ref={useOnClickOutside(() => getExpand(false))}>
+    <Card
+      ref={useOnClickOutside(() => getExpand(false))}
+      sx={{ mb: "0.5rem", boxShadow: "#0000002b 0px 5px 5px" }}
+    >
       <Stack spacing={2} marginTop={4} marginBottom={3} marginX={3}>
         <Input
           disableUnderline
@@ -17,9 +42,10 @@ const TaskCreator = ({ getExpand, task }) => {
             outline: null,
           }}
           autoFocus
-          defaultValue={task.content}
+          defaultValue={taskUpdate.content}
+          onChange={(e) => setContent(e.target.value)}
         />
-        <EstPomodoros defaultValue={task ? task.EP : 1} />
+        <EstPomodoros task={task} getTaskUpdate={getTaskUpdate} />
         <Stack direction="row">
           {["+ Add Note", "+ Add Project"].map((e, index) => (
             <Button
@@ -44,9 +70,11 @@ const TaskCreator = ({ getExpand, task }) => {
         </Stack>
       </Stack>
       <CardActions sx={{ bgcolor: "#efefef", py: 2, px: 3 }}>
-        <Button color="light" variant="contained" disableElevation>
-          delete
-        </Button>
+        {task ? (
+          <Button color="light" variant="contained" disableElevation>
+            delete
+          </Button>
+        ) : null}
         <Stack direction="row" sx={{ ml: "auto" }}>
           <Button
             color="light"
@@ -56,7 +84,12 @@ const TaskCreator = ({ getExpand, task }) => {
           >
             cancel
           </Button>
-          <Button color="dark" variant="contained" disableElevation>
+          <Button
+            color="dark"
+            variant="contained"
+            disableElevation
+            onClick={saveHandle}
+          >
             save
           </Button>
         </Stack>

@@ -39,6 +39,11 @@ const CustomTheme = ({ children }) => {
           },
         },
       },
+      MuiTypography: {
+        styleOverrides: {
+          root: {},
+        },
+      },
     },
   };
   const theme = createTheme(themeConfig);

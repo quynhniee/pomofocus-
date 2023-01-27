@@ -15,7 +15,7 @@ const TasksList = ({ themeColor }) => {
       content: "task 1",
       isActive: false,
       isCompleted: false,
-      Act: 0,
+      act: 0,
       EP: 1,
     },
     {
@@ -23,7 +23,7 @@ const TasksList = ({ themeColor }) => {
       content: "task 2",
       isActive: false,
       isCompleted: false,
-      Act: 1,
+      act: 1,
       EP: 3,
     },
     {
@@ -31,12 +31,13 @@ const TasksList = ({ themeColor }) => {
       content: "task 3",
       isActive: false,
       isCompleted: false,
-      Act: 0,
+      act: 0,
       EP: 2,
     },
   ]);
   const getTasks = (data) => {
     setTasks(data);
+    console.log(data);
   };
   const getExpand = (data) => setExpand(data);
   return (
@@ -57,13 +58,26 @@ const TasksList = ({ themeColor }) => {
               task={task}
               themeColor={themeColor}
             />
+            <Stack
+              marginLeft="auto"
+              color="#BBBBBB"
+              marginRight={2}
+              direction="row"
+              alignItems="flex-end"
+              spacing={0.2}
+            >
+              <Typography fontWeight="bold" fontSize={17}>
+                {task.act}
+              </Typography>
+              <Typography fontWeight="bold"> / {task.EP}</Typography>
+            </Stack>
           </TaskItem>
         ))}
       </List>
       {expand === false ? (
         <AddTaskButton getExpand={getExpand} />
       ) : (
-        <TaskCreator getExpand={getExpand} />
+        <TaskCreator getExpand={getExpand} getTasks={getTasks} tasks={tasks} />
       )}
     </Box>
   );

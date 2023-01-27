@@ -5,7 +5,13 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
-import { Menu, MenuItem, ListItemIcon, ListItemText } from "@mui/material";
+import {
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+} from "@mui/material";
 const TaskMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -56,6 +62,7 @@ const TaskMenu = () => {
             Add from routines
           </ListItemText>
         </MenuItem>
+        <Divider component="li" sx={{ my: 3 }} color="#BBBBBB" />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <DeleteOutlineIcon sx={{ color: "#000000" }} />
