@@ -1,15 +1,17 @@
 import { useTheme } from "@emotion/react";
 import { Container, Stack } from "@mui/system";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Header from "./components/Header";
 import Result from "./components/Result";
-import TabBox from "./components/TabBox";
+import CountDownBox from "./components/CountDownBox";
 import TasksList from "./components/TasksList";
+import Context from "./store/Context";
 
 function App() {
-  const theme = useTheme();
-  const [themeColor, setThemeColor] = useState(theme.palette.red.main);
+  const { tabs, updateTabs } = useContext(Context);
+  const [themeColor, setThemeColor] = useState(tabs[0].themeColor);
   const getThemeColor = (data) => setThemeColor(data);
+
   return (
     <Stack
       sx={{
@@ -21,7 +23,7 @@ function App() {
       <Container maxWidth="sm">
         <Header />
         <Stack sx={{ mx: { md: 4, sm: 2 }, my: 4 }} spacing={3}>
-          <TabBox themeColor={themeColor} getTheme={getThemeColor} />
+          <CountDownBox themeColor={themeColor} getTheme={getThemeColor} />
           <TasksList themeColor={themeColor} />
           <Result />
         </Stack>

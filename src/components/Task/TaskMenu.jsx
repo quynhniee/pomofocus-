@@ -22,14 +22,17 @@ const TaskMenu = ({ getTasks, tasks }) => {
     setAnchorEl(null);
   };
   const clearActHandle = () => {
-    const newTasks = tasks.map((t) => {
-      return { ...t, act: 0 };
-    });
+    const newTasks = tasks.map((t) => ({ ...t, act: 0 }));
     getTasks(newTasks);
     closeHandle();
   };
   const clearAllHandle = () => {
     getTasks([]);
+    closeHandle();
+  };
+  const clearFinishedHandle = () => {
+    const newTasks = tasks.filter((t) => t.isCompleted === false);
+    getTasks(newTasks);
     closeHandle();
   };
   return (
@@ -43,7 +46,7 @@ const TaskMenu = ({ getTasks, tasks }) => {
         open={open}
         onClose={closeHandle}
       >
-        <MenuItem onClick={closeHandle}>
+        <MenuItem onClick={clearFinishedHandle}>
           <ListItemIcon>
             <DeleteOutlineIcon sx={{ color: "#000000" }} />
           </ListItemIcon>

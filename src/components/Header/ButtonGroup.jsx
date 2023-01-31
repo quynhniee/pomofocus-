@@ -11,19 +11,34 @@ const ButtonGroup = () => {
     <Stack direction="row" spacing={1}>
       <LightButton>
         <AssessmentOutlinedIcon fontSize="small" />
-        <Typography fontWeight="light" fontSize="small" ml={0.2}>
+        <Typography
+          fontWeight="light"
+          fontSize="small"
+          ml={0.2}
+          sx={{ display: { xs: "none", sm: "inline-block" } }}
+        >
           Report
         </Typography>
       </LightButton>
       <LightButton>
         <SettingsIcon fontSize="small" />
-        <Typography fontWeight="light" fontSize="small" ml={0.2}>
+        <Typography
+          fontWeight="light"
+          fontSize="small"
+          ml={0.2}
+          sx={{ display: { xs: "none", sm: "inline-block" } }}
+        >
           Setting
         </Typography>
       </LightButton>
       <LightButton>
         <AccountCircleIcon fontSize="small" />
-        <Typography fontWeight="light" fontSize="small" ml={0.2}>
+        <Typography
+          fontWeight="light"
+          fontSize="small"
+          ml={0.2}
+          sx={{ display: { xs: "none", sm: "inline-block" } }}
+        >
           Login
         </Typography>
       </LightButton>

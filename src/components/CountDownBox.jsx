@@ -1,11 +1,11 @@
 import { Stack } from "@mui/material";
 import React from "react";
 import { useEffect, useState } from "react";
-import CountDown from "./TimerBox/CountDown";
-import Tab from "./TimerBox/Tab";
-import TimerButton from "./TimerBox/TimerButton";
+import CountDown from "./CountDown/CountDown";
+import Tab from "./CountDown/Tab";
+import TimerButton from "./CountDown/TimerButton";
 
-const TabBox = ({ themeColor, getTheme }) => {
+const CountDownBox = ({ themeColor, getTheme }) => {
   const [active, setActive] = useState(false);
   const getActive = (data) => {
     setActive(data);
@@ -42,10 +42,10 @@ const TabBox = ({ themeColor, getTheme }) => {
       alignItems="center"
     >
       <Tab getTab={getTab} />
-      <CountDown minute={minute} second={second} />
+      <CountDown minute={minute} second={second} getTab={getTab} />
       <TimerButton themeColor={themeColor} getActive={getActive} />
     </Stack>
   );
 };
 
-export default TabBox;
+export default CountDownBox;

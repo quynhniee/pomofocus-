@@ -3,12 +3,15 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import CustomTheme from "./config/theme";
+import TabsProvider from "./store/Provider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <CustomTheme>
-      <App />
+      <TabsProvider>
+        <App />
+      </TabsProvider>
     </CustomTheme>
   </React.StrictMode>
 );

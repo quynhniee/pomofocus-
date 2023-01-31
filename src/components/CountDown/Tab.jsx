@@ -1,35 +1,10 @@
 import { Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import React from "react";
-import { useTheme } from "@emotion/react";
-import { useState } from "react";
+import React, { useContext } from "react";
+import Context from "../../store/Context";
 
 const Tab = ({ getTab }) => {
-  const theme = useTheme();
-  const [tabs, setTabs] = useState([
-    {
-      name: "Pomodoro",
-      minute: 25,
-      second: 0,
-      themeColor: theme.palette.red.main,
-      isActive: true,
-    },
-    {
-      name: "Short Break",
-      minute: 5,
-      second: 0,
-      themeColor: theme.palette.cyan.main,
-      isActive: false,
-    },
-    {
-      name: "Long Break",
-      minute: 15,
-      second: 0,
-      themeColor: theme.palette.blue.main,
-      isActive: false,
-    },
-  ]);
-
+  const { tabs, updateTabs } = useContext(Context);
   return (
     <Stack direction="row">
       {tabs.map((value, index) => (
@@ -42,7 +17,7 @@ const Tab = ({ getTab }) => {
           }}
           onClick={() => {
             getTab(value.minute, value.second, value.themeColor);
-            setTabs(
+            updateTabs(
               tabs.map((tab) =>
                 tab.name === value.name
                   ? { ...tab, isActive: true }
