@@ -15,24 +15,24 @@ const CountDownBox = ({
 }) => {
   const { tabs, updateTabs } = useContext(Context);
   const [active, setActive] = useState(false);
-  const [minute, setMinute] = useState(activeTab.minute);
-  const [second, setSecond] = useState(activeTab.second);
+  const [minute, setMinute] = useState(tabs[activeTab].minute);
+  const [second, setSecond] = useState(tabs[activeTab].second);
   const getActive = (data) => {
     setActive(data);
   };
-  console.log(activeTab);
-  console.log(tabs);
+  // console.log(activeTab);
+  // console.log(tabs);
   function changeTab() {
-    if (activeTab === tabs[0]) {
+    if (tabs[activeTab] === tabs[0]) {
       increaseCounter();
-      getActiveTab({ ...tabs[1], isActive: true });
+      getActiveTab(1);
       updateTabs(
         tabs.map((tab, index) =>
           index === 1 ? { ...tab, isActive: true } : { ...tab, isActive: false }
         )
       );
     } else {
-      getActiveTab({ ...tabs[0], isActive: true });
+      getActiveTab(0);
       updateTabs(
         tabs.map((tab, index) =>
           index === 0 ? { ...tab, isActive: true } : { ...tab, isActive: false }
@@ -41,10 +41,10 @@ const CountDownBox = ({
     }
   }
   useEffect(() => {
-    setMinute(activeTab.minute);
-    setSecond(activeTab.second);
-    getTheme(activeTab.themeColor);
-  }, [activeTab, getTheme]);
+    setMinute(tabs[activeTab].minute);
+    setSecond(tabs[activeTab].second);
+    getTheme(tabs[activeTab].themeColor);
+  }, [activeTab, getTheme, tabs]);
   useEffect(() => {
     const timerInterval =
       active === true

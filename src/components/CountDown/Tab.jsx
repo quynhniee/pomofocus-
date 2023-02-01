@@ -16,10 +16,10 @@ const Tab = ({ getActiveTab }) => {
             backgroundColor: value.isActive === true ? "#0000002b" : null,
           }}
           onClick={() => {
-            getActiveTab({ ...tabs[index], isActive: true });
+            getActiveTab(index);
             updateTabs(
-              tabs.map((tab) =>
-                tab.name === value.name
+              tabs.map((tab, i) =>
+                i === index
                   ? { ...tab, isActive: true }
                   : { ...tab, isActive: false }
               )

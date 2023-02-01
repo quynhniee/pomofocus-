@@ -1,5 +1,5 @@
 import { Container, Stack } from "@mui/system";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import Header from "./components/Header";
 import Result from "./components/Result";
 import CountDownBox from "./components/CountDownBox";
@@ -11,12 +11,15 @@ function App() {
   const { tabs, updateTabs } = useContext(Context);
   const [themeColor, setThemeColor] = useState(tabs[0].themeColor);
   const [activeItem, setActiveItem] = useState("Time to focus!");
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [activeTab, setActiveTab] = useState(0);
   const [counter, setCounter] = useState(0);
   const getThemeColor = useCallback((data) => setThemeColor(data), []);
   const getActiveItem = useCallback((data) => setActiveItem(data), []);
   const getActiveTab = useCallback((data) => setActiveTab(data), []);
   const increaseCounter = useCallback(() => setCounter(counter + 1), [counter]);
+  useEffect(() => {
+    console.log(activeTab);
+  }, [activeTab]);
   return (
     <Stack
       sx={{
