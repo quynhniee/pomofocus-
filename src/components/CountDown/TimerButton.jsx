@@ -1,11 +1,8 @@
 import React from "react";
 import { Button, Stack, Typography } from "@mui/material";
-import { useState } from "react";
 
-const TimerButton = ({ themeColor, getActive }) => {
-  const [active, setActive] = useState(false);
+const TimerButton = ({ themeColor, getActive, active }) => {
   const clickHandle = () => {
-    setActive(!active);
     getActive(!active);
   };
   return (

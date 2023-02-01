@@ -1,24 +1,50 @@
 import { Stack } from "@mui/material";
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { useEffect, useState, useCallback } from "react";
+import Context from "../store/Context";
 import CountDown from "./CountDown/CountDown";
 import Tab from "./CountDown/Tab";
 import TimerButton from "./CountDown/TimerButton";
 
-const CountDownBox = ({ themeColor, getTheme }) => {
+const CountDownBox = ({
+  themeColor,
+  getTheme,
+  increaseCounter,
+  activeTab,
+  getActiveTab,
+}) => {
+  const { tabs, updateTabs } = useContext(Context);
   const [active, setActive] = useState(false);
+  const [minute, setMinute] = useState(activeTab.minute);
+  const [second, setSecond] = useState(activeTab.second);
   const getActive = (data) => {
     setActive(data);
   };
-  const [minute, setMinute] = useState(25);
-  const [second, setSecond] = useState(0);
-  const getTab = (...props) => {
-    const [initialMinute, initialSecond, themeColor] = props;
-    setMinute(initialMinute);
-    setSecond(initialSecond);
-    getTheme(themeColor);
-  };
-
+  console.log(activeTab);
+  console.log(tabs);
+  function changeTab() {
+    if (activeTab === tabs[0]) {
+      increaseCounter();
+      getActiveTab({ ...tabs[1], isActive: true });
+      updateTabs(
+        tabs.map((tab, index) =>
+          index === 1 ? { ...tab, isActive: true } : { ...tab, isActive: false }
+        )
+      );
+    } else {
+      getActiveTab({ ...tabs[0], isActive: true });
+      updateTabs(
+        tabs.map((tab, index) =>
+          index === 0 ? { ...tab, isActive: true } : { ...tab, isActive: false }
+        )
+      );
+    }
+  }
+  useEffect(() => {
+    setMinute(activeTab.minute);
+    setSecond(activeTab.second);
+    getTheme(activeTab.themeColor);
+  }, [activeTab, getTheme]);
   useEffect(() => {
     const timerInterval =
       active === true
@@ -28,12 +54,16 @@ const CountDownBox = ({ themeColor, getTheme }) => {
               if (minute > 0) {
                 setMinute(minute - 1);
                 setSecond(59);
-              } else clearInterval(timerInterval);
+              } else {
+                clearInterval(timerInterval);
+                changeTab();
+                setActive(false);
+              }
             }
           }, 1000)
         : null;
     return () => clearInterval(timerInterval);
-  }, [active, minute, second]);
+  });
   return (
     <Stack
       sx={{ backgroundColor: "#ffffff2b", borderRadius: "0.3rem" }}
@@ -41,9 +71,13 @@ const CountDownBox = ({ themeColor, getTheme }) => {
       paddingBottom={3}
       alignItems="center"
     >
-      <Tab getTab={getTab} />
-      <CountDown minute={minute} second={second} getTab={getTab} />
-      <TimerButton themeColor={themeColor} getActive={getActive} />
+      <Tab getActiveTab={getActiveTab} />
+      <CountDown minute={minute} second={second} />
+      <TimerButton
+        themeColor={themeColor}
+        getActive={getActive}
+        active={active}
+      />
     </Stack>
   );
 };

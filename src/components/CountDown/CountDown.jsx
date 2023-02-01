@@ -2,7 +2,7 @@ import React from "react";
 import { Typography } from "@mui/material";
 
 const CountDown = (props) => {
-  const { minute, second, getTab } = props;
+  const { minute, second } = props;
 
   return (
     <Typography

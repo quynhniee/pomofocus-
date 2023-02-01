@@ -7,22 +7,22 @@ const Provider = ({ children }) => {
   const [tabs, setTabs] = useState([
     {
       name: "Pomodoro",
-      minute: 25,
-      second: 0,
+      minute: 0,
+      second: 10,
       themeColor: theme.palette.red.main,
       isActive: true,
     },
     {
       name: "Short Break",
-      minute: 5,
-      second: 0,
+      minute: 0,
+      second: 5,
       themeColor: theme.palette.cyan.main,
       isActive: false,
     },
     {
       name: "Long Break",
-      minute: 15,
-      second: 0,
+      minute: 0,
+      second: 10,
       themeColor: theme.palette.blue.main,
       isActive: false,
     },

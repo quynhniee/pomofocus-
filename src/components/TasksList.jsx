@@ -7,7 +7,7 @@ import TaskItem from "./Task/TaskItem";
 import TaskCheckButton from "./Task/TaskCheckButton";
 import TaskCreator from "./Task/TaskCreator";
 
-const TasksList = ({ themeColor }) => {
+const TasksList = ({ themeColor, getActiveItem }) => {
   const [expand, setExpand] = useState(false);
   const [tasks, setTasks] = useState([
     {
@@ -51,7 +51,13 @@ const TasksList = ({ themeColor }) => {
       <Divider sx={{ bgcolor: "#ffffff80", height: "2px", my: "0.8rem" }} />
       <List>
         {tasks.map((task, index) => (
-          <TaskItem tasks={tasks} getTasks={getTasks} task={task} key={index}>
+          <TaskItem
+            tasks={tasks}
+            getTasks={getTasks}
+            task={task}
+            key={index}
+            getActiveItem={getActiveItem}
+          >
             <TaskCheckButton
               tasks={tasks}
               getTasks={getTasks}

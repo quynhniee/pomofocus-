@@ -3,7 +3,7 @@ import { ListItem } from "@mui/material";
 import TaskExpandButton from "./TaskExpandButton";
 import TaskCreator from "./TaskCreator";
 
-const TaskItem = ({ tasks, getTasks, task, children }) => {
+const TaskItem = ({ tasks, getTasks, task, children, getActiveItem }) => {
   const [expand, setExpand] = useState(false);
   const clickHandle = () => {
     getTasks(
@@ -13,6 +13,7 @@ const TaskItem = ({ tasks, getTasks, task, children }) => {
           : { ...t, isActive: false }
       )
     );
+    getActiveItem(task.content);
   };
   const getExpand = (data) => setExpand(data);
   return (

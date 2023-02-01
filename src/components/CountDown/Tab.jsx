@@ -3,7 +3,7 @@ import { Stack } from "@mui/system";
 import React, { useContext } from "react";
 import Context from "../../store/Context";
 
-const Tab = ({ getTab }) => {
+const Tab = ({ getActiveTab }) => {
   const { tabs, updateTabs } = useContext(Context);
   return (
     <Stack direction="row">
@@ -16,7 +16,7 @@ const Tab = ({ getTab }) => {
             backgroundColor: value.isActive === true ? "#0000002b" : null,
           }}
           onClick={() => {
-            getTab(value.minute, value.second, value.themeColor);
+            getActiveTab({ ...tabs[index], isActive: true });
             updateTabs(
               tabs.map((tab) =>
                 tab.name === value.name
