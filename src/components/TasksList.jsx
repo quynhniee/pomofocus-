@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Stack, Typography, List, Divider } from "@mui/material";
 import { useState } from "react";
 import TaskMenu from "./Task/TaskMenu";
@@ -7,39 +7,25 @@ import TaskItem from "./Task/TaskItem";
 import TaskCheckButton from "./Task/TaskCheckButton";
 import TaskCreator from "./Task/TaskCreator";
 
-const TasksList = ({ themeColor, getActiveItem }) => {
+const TasksList = ({
+  themeColor,
+  getActiveItem,
+  getActNumber,
+  getPomosNumber,
+  tasks,
+  getTasks,
+}) => {
   const [expand, setExpand] = useState(false);
-  const [tasks, setTasks] = useState([
-    {
-      id: "12drrdasf",
-      content: "task 1",
-      isActive: false,
-      isCompleted: false,
-      act: 0,
-      EP: 1,
-    },
-    {
-      id: "adsfwiqwe8",
-      content: "task 2",
-      isActive: false,
-      isCompleted: false,
-      act: 1,
-      EP: 3,
-    },
-    {
-      id: "ad123qwe8",
-      content: "task 3",
-      isActive: false,
-      isCompleted: false,
-      act: 0,
-      EP: 2,
-    },
-  ]);
-  const getTasks = (data) => {
-    setTasks(data);
-    console.log(data);
-  };
   const getExpand = (data) => setExpand(data);
+  useEffect(() => {
+    const act = tasks.reduce((sum, val) => sum + val.act, 0);
+    const pomos = tasks.reduce(
+      (sum, val) => sum + Math.max(val.act, val.EP),
+      0
+    );
+    getActNumber(act);
+    getPomosNumber(pomos);
+  }, [getActNumber, getPomosNumber, tasks]);
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between">
@@ -66,16 +52,18 @@ const TasksList = ({ themeColor, getActiveItem }) => {
             />
             <Stack
               marginLeft="auto"
-              color="#BBBBBB"
               marginRight={2}
               direction="row"
               alignItems="flex-end"
               spacing={0.2}
             >
-              <Typography fontWeight="bold" fontSize={17}>
+              <Typography fontWeight="bold" color="#BBBBBB" fontSize={17}>
                 {task.act}
               </Typography>
-              <Typography fontWeight="bold"> / {task.EP}</Typography>
+              <Typography fontWeight="bold" color="#BBBBBB">
+                {" "}
+                / {task.EP}
+              </Typography>
             </Stack>
           </TaskItem>
         ))}

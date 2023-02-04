@@ -10,16 +10,53 @@ import { Typography } from "@mui/material";
 function App() {
   const { tabs, updateTabs } = useContext(Context);
   const [themeColor, setThemeColor] = useState(tabs[0].themeColor);
-  const [activeItem, setActiveItem] = useState("Time to focus!");
+  const [tasks, setTasks] = useState([
+    {
+      id: "12drrdasf",
+      content: "task 1",
+      isActive: true,
+      isCompleted: false,
+      act: 0,
+      EP: 1,
+    },
+    {
+      id: "adsfwiqwe8",
+      content: "task 2",
+      isActive: false,
+      isCompleted: false,
+      act: 1,
+      EP: 3,
+    },
+    {
+      id: "ad123qwe8",
+      content: "task 3",
+      isActive: false,
+      isCompleted: false,
+      act: 0,
+      EP: 2,
+    },
+  ]);
+  const defaultActiveItem = () => {
+    for (const task of tasks) if (task.isActive === true) return task;
+    return { content: "Time to focus!" };
+  };
+  const [activeItem, setActiveItem] = useState(defaultActiveItem);
   const [activeTab, setActiveTab] = useState(0);
   const [counter, setCounter] = useState(0);
+  const [actNumber, setActNumber] = useState(0);
+  const [pomosNumber, setPomosNumber] = useState(0);
   const getThemeColor = useCallback((data) => setThemeColor(data), []);
   const getActiveItem = useCallback((data) => setActiveItem(data), []);
   const getActiveTab = useCallback((data) => setActiveTab(data), []);
   const increaseCounter = useCallback(() => setCounter(counter + 1), [counter]);
+  const getActNumber = useCallback((data) => setActNumber(data), []);
+  const getPomosNumber = useCallback((data) => setPomosNumber(data), []);
+  const getTasks = useCallback((data) => setTasks(data), []);
+
   useEffect(() => {
-    console.log(activeTab);
-  }, [activeTab]);
+    if (tasks.length === 0) setActiveItem({ content: "Time to focus!" });
+    console.log(tasks);
+  }, [tasks]);
   return (
     <Stack
       sx={{
@@ -37,17 +74,28 @@ function App() {
             increaseCounter={increaseCounter}
             activeTab={activeTab}
             getActiveTab={getActiveTab}
+            activeItem={activeItem}
+            getActiveItem={getActiveItem}
+            tasks={tasks}
+            getTasks={getTasks}
           />
           <Stack alignItems="center">
             <Typography color="#fff" fontSize={16} sx={{ opacity: 0.6 }}>
               #{counter}
             </Typography>
             <Typography color="#fff" fontSize={16}>
-              {activeItem}
+              {activeItem.content}
             </Typography>
           </Stack>
-          <TasksList themeColor={themeColor} getActiveItem={getActiveItem} />
-          <Result />
+          <TasksList
+            tasks={tasks}
+            getTasks={getTasks}
+            themeColor={themeColor}
+            getActiveItem={getActiveItem}
+            getActNumber={getActNumber}
+            getPomosNumber={getPomosNumber}
+          />
+          <Result actNumber={actNumber} pomosNumber={pomosNumber} />
         </Stack>
       </Container>
     </Stack>

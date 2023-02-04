@@ -13,7 +13,7 @@ const TaskItem = ({ tasks, getTasks, task, children, getActiveItem }) => {
           : { ...t, isActive: false }
       )
     );
-    getActiveItem(task.content);
+    getActiveItem(task);
   };
   const getExpand = (data) => setExpand(data);
   return (

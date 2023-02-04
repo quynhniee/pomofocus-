@@ -12,20 +12,32 @@ const CountDownBox = ({
   increaseCounter,
   activeTab,
   getActiveTab,
+  activeItem,
+  getActiveItem,
+  tasks,
+  getTasks,
 }) => {
   const { tabs, updateTabs } = useContext(Context);
   const [active, setActive] = useState(false);
   const [minute, setMinute] = useState(tabs[activeTab].minute);
   const [second, setSecond] = useState(tabs[activeTab].second);
-  const getActive = (data) => {
+  const getActive = useCallback((data) => {
     setActive(data);
-  };
+  }, []);
   // console.log(activeTab);
   // console.log(tabs);
+
+  function updateItemAct() {
+    const newItem = { ...activeItem, act: activeItem.act + 1 };
+    getActiveItem(newItem);
+    return tasks.map((task) => (task.id === activeItem.id ? newItem : task));
+  }
+
   function changeTab() {
     if (tabs[activeTab] === tabs[0]) {
       increaseCounter();
       getActiveTab(1);
+      getTasks(updateItemAct());
       updateTabs(
         tabs.map((tab, index) =>
           index === 1 ? { ...tab, isActive: true } : { ...tab, isActive: false }

@@ -41,7 +41,9 @@ const CustomTheme = ({ children }) => {
       },
       MuiTypography: {
         styleOverrides: {
-          root: {},
+          root: {
+            // color: "#fff",
+          },
         },
       },
     },
