@@ -16,3 +16,7 @@ code {
 input {
   padding: 0 !important;
 }
+
+fieldset {
+  border: none !important;
+}

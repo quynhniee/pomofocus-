@@ -1,19 +1,18 @@
 import React, { useContext } from "react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { Stack } from "@mui/system";
-import { Input, Typography } from "@mui/material";
+import { Input } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { IOSSwitch, List, ListItem, Text } from "../SettingButton";
+import { IOSSwitch, List, ListItem, Text, Title } from "../SettingButton";
 import Context from "../../store/Context";
 
 const Timer = () => {
   const { tabs, updateTabs } = useContext(Context);
   return (
     <List>
-      <Stack direction="row" alignItems="center" color={grey[400]} spacing={1}>
+      <Title>
         <AccessTimeIcon />
         <Text textTransform="uppercase">timer</Text>
-      </Stack>
+      </Title>
       <List>
         <Text variant="span">Time (minutes)</Text>
         <ListItem>
@@ -25,8 +24,12 @@ const Timer = () => {
               <Input
                 disableUnderline
                 sx={{ maxWidth: 90 }}
-                type="number"
                 defaultValue={tab.minute}
+                inputProps={{
+                  step: 1,
+                  min: 0,
+                  type: "number",
+                }}
               />
             </div>
           ))}

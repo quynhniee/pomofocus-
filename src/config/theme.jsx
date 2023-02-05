@@ -43,8 +43,21 @@ const CustomTheme = ({ children }) => {
         styleOverrides: {
           root: {
             backgroundColor: "#efefef",
-            padding: 8,
+            padding: 10,
             borderRadius: 4,
+          },
+        },
+      },
+      MuiSelect: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "#efefef",
+            padding: 12,
+            borderRadius: 4,
+            border: "none",
+          },
+          select: {
+            padding: 0,
           },
         },
       },

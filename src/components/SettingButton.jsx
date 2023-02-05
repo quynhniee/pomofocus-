@@ -14,10 +14,17 @@ import LightTypography from "./LightTypography";
 import { CloseSharp } from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
 import TimerSetting from "./Setting/Timer";
+import Task from "./Setting/Task";
+import Sound from "./Setting/Sound";
 
 const List = ({ children }) => <Stack spacing={2}>{children}</Stack>;
 const ListItem = ({ children }) => (
   <Stack direction="row" justifyContent="space-between" alignItems="center">
+    {children}
+  </Stack>
+);
+const Title = ({ children }) => (
+  <Stack direction="row" alignItems="center" color={grey[400]} spacing={1}>
     {children}
   </Stack>
 );
@@ -115,7 +122,11 @@ const SettingButton = () => {
         <SettingsIcon fontSize="small" />
         <LightTypography>Setting</LightTypography>
       </LightButton>
-      <Modal open={open} onClose={closeHandle}>
+      <Modal
+        open={open}
+        onClose={closeHandle}
+        sx={{ overflow: "scroll", padding: "48px 0px 58px" }}
+      >
         <Stack sx={style}>
           <Stack
             direction="row"
@@ -127,9 +138,12 @@ const SettingButton = () => {
             <CloseButton onClick={closeHandle} />
           </Stack>
           <Divider />
-          <Stack px={2} py={3} spacing={4}>
+          <Stack px={2.5} py={3} spacing={4}>
             <TimerSetting />
             <Divider />
+            <Task />
+            <Divider />
+            <Sound />
           </Stack>
           <Stack bgcolor={grey[200]} px={2} py={1.5} justifyContent="flex-end">
             <Button>OK</Button>
@@ -140,5 +154,5 @@ const SettingButton = () => {
   );
 };
 
-export { List, ListItem, Text, IOSSwitch };
+export { List, ListItem, Text, IOSSwitch, Title };
 export default SettingButton;
