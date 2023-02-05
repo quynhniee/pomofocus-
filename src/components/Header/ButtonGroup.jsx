@@ -1,38 +1,23 @@
 import { Stack } from "@mui/system";
 import React from "react";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
-import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { styled, Typography } from "@mui/material";
 import LightButton from "../LightButton";
+import LightTypography from "../LightTypography";
+import SettingButton from "../SettingButton";
 
-const HeaderTypography = styled(Typography)({
-  fontWeight: "lighter",
-  fontSize: "small",
-  ml: 0.2,
-  display: { xs: "none", sm: "inline-block" },
-});
 const ButtonGroup = () => {
   return (
     <Stack direction="row" spacing={1}>
       <LightButton>
         <AssessmentOutlinedIcon fontSize="small" />
-        <HeaderTypography>Report</HeaderTypography>
+        <LightTypography>Report</LightTypography>
       </LightButton>
-      <LightButton>
-        <SettingsIcon fontSize="small" />
-        <HeaderTypography>Setting</HeaderTypography>
-      </LightButton>
+      <SettingButton />
+
       <LightButton>
         <AccountCircleIcon fontSize="small" />
-        <Typography
-          fontWeight="light"
-          fontSize="small"
-          ml={0.2}
-          sx={{ display: { xs: "none", sm: "inline-block" } }}
-        >
-          Login
-        </Typography>
+        <LightTypography>Login</LightTypography>
       </LightButton>
     </Stack>
   );

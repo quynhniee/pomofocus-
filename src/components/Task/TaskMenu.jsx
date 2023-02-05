@@ -37,7 +37,7 @@ const TaskMenu = ({ getTasks, tasks }) => {
   };
   return (
     <>
-      <LightButton padding={0} handleClick={handleClick}>
+      <LightButton padding={0} onClick={handleClick}>
         <MoreVertIcon fontSize="large" />
       </LightButton>
       <Menu

@@ -43,9 +43,11 @@ const TaskCreator = ({ getExpand, task, tasks, getTasks }) => {
           fullWidth
           placeholder="What are you working on?"
           sx={{
+            bgcolor: "#fff",
             fontSize: "1.3rem",
             fontWeight: "bold",
             outline: null,
+            p: 0,
           }}
           autoFocus
           defaultValue={taskUpdate.content}

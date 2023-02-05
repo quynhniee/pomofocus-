@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 
-const LightButton = ({ children, padding, handleClick }) => {
+const LightButton = ({ children, padding, onClick }) => {
   return (
     <Button
       sx={{
@@ -10,7 +10,7 @@ const LightButton = ({ children, padding, handleClick }) => {
         minWidth: 0,
         padding: padding,
       }}
-      onClick={handleClick}
+      onClick={onClick}
     >
       {children}
     </Button>

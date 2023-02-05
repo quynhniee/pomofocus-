@@ -26,9 +26,6 @@ const EstPomodoros = ({ task, getTaskUpdate }) => {
                 type="number"
                 disableUnderline
                 sx={{
-                  bgcolor: "#efefef",
-                  p: 1,
-                  borderRadius: 1,
                   width: "75px",
                   fontWeight: "bold",
                   color: "#999999",
@@ -46,9 +43,6 @@ const EstPomodoros = ({ task, getTaskUpdate }) => {
             type="number"
             disableUnderline
             sx={{
-              bgcolor: "#efefef",
-              p: 1,
-              borderRadius: 1,
               width: "75px",
               fontWeight: "bold",
             }}

@@ -21,8 +21,8 @@ const Provider = ({ children }) => {
     },
     {
       name: "Long Break",
-      minute: 0,
-      second: 10,
+      minute: 1,
+      second: 0,
       themeColor: theme.palette.blue.main,
       isActive: false,
     },

@@ -39,10 +39,12 @@ const CustomTheme = ({ children }) => {
           },
         },
       },
-      MuiTypography: {
+      MuiInput: {
         styleOverrides: {
           root: {
-            // color: "#fff",
+            backgroundColor: "#efefef",
+            padding: 8,
+            borderRadius: 4,
           },
         },
       },
