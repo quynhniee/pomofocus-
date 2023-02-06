@@ -1,6 +1,6 @@
 import React from "react";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import { IOSSwitch, List, ListItem, Text, Title } from "../SettingButton";
+import { IOSSwitch, List, ListItem, Text, Title } from "./Components";
 
 const Task = () => {
   return (

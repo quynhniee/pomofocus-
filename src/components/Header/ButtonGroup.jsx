@@ -4,7 +4,7 @@ import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LightButton from "../LightButton";
 import LightTypography from "../LightTypography";
-import SettingButton from "../SettingButton";
+import SettingButton from "../Setting";
 
 const ButtonGroup = () => {
   return (

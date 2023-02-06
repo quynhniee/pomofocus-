@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListItem, Text, Title } from "../SettingButton";
+import { List, ListItem, Text, Title } from "./Components";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { Input, MenuItem, Select, Typography } from "@mui/material";
 import CustomSlider from "../CustomSlider";

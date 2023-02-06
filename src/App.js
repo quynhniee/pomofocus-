@@ -8,7 +8,7 @@ import Context from "./store/Context";
 import { Typography } from "@mui/material";
 
 function App() {
-  const { tabs, updateTabs } = useContext(Context);
+  const { tabs } = useContext(Context);
   const [themeColor, setThemeColor] = useState(tabs[0].themeColor);
   const [tasks, setTasks] = useState([
     {

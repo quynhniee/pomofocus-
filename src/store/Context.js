@@ -11,6 +11,9 @@ const Context = createContext({
     },
   ],
   updateTabs: () => {},
+  updatePomodoro: () => {},
+  updateShortBreak: () => {},
+  updateLongBreak: () => {},
 });
 
 export default Context;

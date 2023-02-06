@@ -28,8 +28,29 @@ const Provider = ({ children }) => {
     },
   ]);
   const updateTabs = useCallback((data) => setTabs(data), []);
+  const updatePomodoro = useCallback(
+    (data) => setTabs([data, tabs[1], tabs[2]]),
+    [tabs]
+  );
+  const updateShortBreak = useCallback(
+    (data) => setTabs([tabs[0], data, tabs[2]]),
+    [tabs]
+  );
+  const updateLongBreak = useCallback(
+    (data) => setTabs([tabs[0], tabs[1], data]),
+    [tabs]
+  );
+  useCallback(() => console.log(tabs), [tabs]);
   return (
-    <TabsContext.Provider value={{ tabs, updateTabs }}>
+    <TabsContext.Provider
+      value={{
+        tabs,
+        updateTabs,
+        updatePomodoro,
+        updateShortBreak,
+        updateLongBreak,
+      }}
+    >
       {children}
     </TabsContext.Provider>
   );

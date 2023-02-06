@@ -2,11 +2,22 @@ import React, { useContext } from "react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Input } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { IOSSwitch, List, ListItem, Text, Title } from "../SettingButton";
+import { IOSSwitch, List, ListItem, Text, Title } from "./Components";
 import Context from "../../store/Context";
 
-const Timer = () => {
-  const { tabs, updateTabs } = useContext(Context);
+const Timer = ({
+  getPomodoroMinute,
+  getShortBreakMinute,
+  getLongBreakMinute,
+}) => {
+  const { tabs } = useContext(Context);
+  const onChangeHandle = (event, index) => {
+    const time = +event.target.value;
+    if (index === 0) getPomodoroMinute(time);
+    else if (index === 1) getShortBreakMinute(time);
+    else if (index === 2) getLongBreakMinute(time);
+  };
+
   return (
     <List>
       <Title>
@@ -30,6 +41,7 @@ const Timer = () => {
                   min: 0,
                   type: "number",
                 }}
+                onChange={(e) => onChangeHandle(e, index)}
               />
             </div>
           ))}

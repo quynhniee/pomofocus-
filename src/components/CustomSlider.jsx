@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Slider, Stack } from "@mui/material";
-import { Text } from "./SettingButton";
+import { Text } from "./Setting/Components";
 
 const CustomSlider = ({ defaultValue }) => {
   const [value, setValue] = useState(defaultValue);
