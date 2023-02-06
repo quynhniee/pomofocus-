@@ -4,6 +4,8 @@ import TabsContext from "./Context";
 
 const Provider = ({ children }) => {
   const theme = useTheme();
+  const [autoStartBreak, setAutoStartBreak] = useState(true);
+  const [autoStartPomodoro, setAutoStartPomodoro] = useState(false);
   const [tabs, setTabs] = useState([
     {
       name: "Pomodoro",
@@ -27,6 +29,9 @@ const Provider = ({ children }) => {
       isActive: false,
     },
   ]);
+
+  const updateAutoStartBreak = (data) => setAutoStartBreak(data);
+  const updateAutoStartPomodoro = (data) => setAutoStartPomodoro(data);
   const updateTabs = useCallback((data) => setTabs(data), []);
   const updatePomodoro = useCallback(
     (data) => setTabs([data, tabs[1], tabs[2]]),
@@ -49,6 +54,10 @@ const Provider = ({ children }) => {
         updatePomodoro,
         updateShortBreak,
         updateLongBreak,
+        autoStartBreak,
+        autoStartPomodoro,
+        updateAutoStartBreak,
+        updateAutoStartPomodoro,
       }}
     >
       {children}

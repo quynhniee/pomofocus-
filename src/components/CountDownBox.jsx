@@ -17,8 +17,11 @@ const CountDownBox = ({
   tasks,
   getTasks,
 }) => {
-  const { tabs, updateTabs } = useContext(Context);
-  const [active, setActive] = useState(false);
+  const { tabs, updateTabs, autoStartBreak, autoStartPomodoro } =
+    useContext(Context);
+  const [active, setActive] = useState(
+    activeTab === 0 ? autoStartPomodoro : autoStartBreak
+  );
   const [minute, setMinute] = useState(tabs[activeTab].minute);
   const [second, setSecond] = useState(tabs[activeTab].second);
   const getActive = useCallback((data) => {

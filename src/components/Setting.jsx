@@ -46,9 +46,6 @@ const SettingButton = () => {
   const closeHandle = () => setOpen(false);
 
   const clickHandle = () => {
-    // updatePomodoro({ ...tabs[0], minute: pomodoroMinute });
-    // updateShortBreak({ ...tabs[1], minute: shortBreakMinute });
-    // updateLongBreak({ ...tabs[2], minute: longBreakMinute });
     updateTabs([
       { ...pomodoro, minute: pomodoroMinute },
       { ...shortBreak, minute: shortBreakMinute },
