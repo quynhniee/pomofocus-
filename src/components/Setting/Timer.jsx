@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Input } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -9,8 +9,11 @@ const Timer = ({
   getPomodoroMinute,
   getShortBreakMinute,
   getLongBreakMinute,
+  toggleStartBreak,
+  toggleStartPomodoro,
 }) => {
   const { tabs } = useContext(Context);
+
   const onChangeHandle = (event, index) => {
     const time = +event.target.value;
     if (index === 0) getPomodoroMinute(time);

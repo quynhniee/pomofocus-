@@ -1,5 +1,13 @@
-import { Typography, Stack, styled, Switch } from "@mui/material";
-import React from "react";
+import {
+  Typography,
+  Stack,
+  styled,
+  Switch,
+  Button,
+  Modal,
+  Divider,
+} from "@mui/material";
+import React, { useState } from "react";
 import { grey } from "@mui/material/colors";
 
 const List = ({ children }) => <Stack spacing={2}>{children}</Stack>;
@@ -68,4 +76,46 @@ const IOSSwitch = styled((props) => (
   },
 }));
 
-export { List, ListItem, Text, IOSSwitch, Title };
+const ThemeModal = ({ tab }) => {
+  const [open, setOpen] = useState(false);
+  const openHandle = () => setOpen(true);
+  const closeHandle = () => setOpen(false);
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#fff",
+    maxWidth: 780,
+  };
+  return (
+    <>
+      <Button
+        sx={{
+          minWidth: 0,
+          bgcolor: tab.themeColor,
+          width: 27,
+          height: 27,
+          ":hover": { opacity: 0.8, bgcolor: tab.themeColor },
+        }}
+        onClick={openHandle}
+      ></Button>
+      <Modal open={open} onClose={closeHandle}>
+        <Stack
+          maxWidth={780}
+          spacing={2}
+          sx={style}
+          overflow="hidden"
+          borderRadius={2}
+          justifyContent="center"
+        >
+          <Text>Pick a color for {tab.name}</Text>
+          {/* nhớ custom lại cái Modal nhaaa :< */}
+          <Divider />
+        </Stack>
+      </Modal>
+    </>
+  );
+};
+export { List, ListItem, Text, IOSSwitch, Title, ThemeModal };

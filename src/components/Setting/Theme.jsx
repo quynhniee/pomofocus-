@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { List, ListItem, Text, Title } from "./Components";
+import { List, ListItem, Text, ThemeModal, Title } from "./Components";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import { Stack } from "@mui/system";
 import Context from "../../store/Context";
@@ -16,6 +16,7 @@ const ColorButton = ({ color }) => (
     }}
   ></Button>
 );
+
 const Theme = () => {
   const { tabs } = useContext(Context);
 
@@ -28,7 +29,8 @@ const Theme = () => {
       <ListItem>
         <Text>Color Themes</Text>
         <Stack direction="row" spacing={1.5}>
-          <ColorButton color={tabs[0].themeColor} />
+          <ThemeModal tab={tabs[0]} />
+          {/* <ColorButton color={tabs[0].themeColor} /> */}
           <ColorButton color={tabs[1].themeColor} />
           <ColorButton color={tabs[2].themeColor} />
         </Stack>

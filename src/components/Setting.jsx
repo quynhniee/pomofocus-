@@ -25,7 +25,14 @@ const style = {
 };
 
 const SettingButton = () => {
-  const { tabs, updateTabs } = useContext(Context);
+  const {
+    tabs,
+    updateTabs,
+    autoStartBreak,
+    autoStartPomodoro,
+    updateAutoStartBreak,
+    updateAutoStartPomodoro,
+  } = useContext(Context);
   const pomodoro = tabs[0],
     shortBreak = tabs[1],
     longBreak = tabs[2];
@@ -33,6 +40,8 @@ const SettingButton = () => {
   const [pomodoroMinute, setPomodoroMinute] = useState(pomodoro.minute);
   const [shortBreakMinute, setShortBreakMinute] = useState(shortBreak.minute);
   const [longBreakMinute, setLongBreakMinute] = useState(longBreak.minute);
+  const [startBreak, setStartBreak] = useState(autoStartBreak);
+  const [startPomodoro, setStartPomodoro] = useState(autoStartPomodoro);
   const getPomodoroMinute = useCallback((data) => setPomodoroMinute(data), []);
   const getShortBreakMinute = useCallback(
     (data) => setShortBreakMinute(data),
@@ -42,15 +51,24 @@ const SettingButton = () => {
     (data) => setLongBreakMinute(data),
     []
   );
+  const toggleStartBreak = useCallback(
+    () => setStartBreak(!startBreak),
+    [startBreak]
+  );
+  const toggleStartPomodoro = useCallback(
+    () => setStartPomodoro(!startPomodoro),
+    [startPomodoro]
+  );
   const openHandle = () => setOpen(true);
   const closeHandle = () => setOpen(false);
-
-  const clickHandle = () => {
+  const saveHandle = () => {
     updateTabs([
       { ...pomodoro, minute: pomodoroMinute },
       { ...shortBreak, minute: shortBreakMinute },
       { ...longBreak, minute: longBreakMinute },
     ]);
+    updateAutoStartBreak(startBreak);
+    updateAutoStartPomodoro(startPomodoro);
     setOpen(false);
   };
   return (
@@ -80,6 +98,8 @@ const SettingButton = () => {
               getPomodoroMinute={getPomodoroMinute}
               getShortBreakMinute={getShortBreakMinute}
               getLongBreakMinute={getLongBreakMinute}
+              toggleStartBreak={toggleStartBreak}
+              toggleStartPomodoro={toggleStartPomodoro}
             />
             <Divider />
             <TaskSetting />
@@ -90,7 +110,7 @@ const SettingButton = () => {
           </Stack>
           <Stack bgcolor={grey[200]} px={2} py={1.5} justifyContent="flex-end">
             <Stack ml="auto">
-              <Button color="dark" variant="contained" onClick={clickHandle}>
+              <Button color="dark" variant="contained" onClick={saveHandle}>
                 OK
               </Button>
             </Stack>
