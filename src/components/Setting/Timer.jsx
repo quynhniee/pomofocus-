@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { Input } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -11,6 +11,8 @@ const Timer = ({
   getLongBreakMinute,
   toggleStartBreak,
   toggleStartPomodoro,
+  startBreak,
+  startPomodoro,
 }) => {
   const { tabs } = useContext(Context);
 
@@ -51,11 +53,11 @@ const Timer = ({
         </ListItem>
         <ListItem>
           <Text>Auto Start Breaks</Text>
-          <IOSSwitch />
+          <IOSSwitch checked={startBreak} onChange={toggleStartBreak} />
         </ListItem>
         <ListItem>
           <Text>Auto Start Pomodoros</Text>
-          <IOSSwitch />
+          <IOSSwitch checked={startPomodoro} onChange={toggleStartPomodoro} />
         </ListItem>
         <ListItem>
           <Text>Long Break interval</Text>

@@ -51,10 +51,10 @@ const SettingButton = () => {
     (data) => setLongBreakMinute(data),
     []
   );
-  const toggleStartBreak = useCallback(
-    () => setStartBreak(!startBreak),
-    [startBreak]
-  );
+  const toggleStartBreak = useCallback(() => {
+    setStartBreak(!startBreak);
+    console.log(!startBreak);
+  }, [startBreak]);
   const toggleStartPomodoro = useCallback(
     () => setStartPomodoro(!startPomodoro),
     [startPomodoro]
@@ -100,6 +100,8 @@ const SettingButton = () => {
               getLongBreakMinute={getLongBreakMinute}
               toggleStartBreak={toggleStartBreak}
               toggleStartPomodoro={toggleStartPomodoro}
+              startBreak={startBreak}
+              startPomodoro={startPomodoro}
             />
             <Divider />
             <TaskSetting />

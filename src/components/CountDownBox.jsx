@@ -38,6 +38,7 @@ const CountDownBox = ({
 
   function changeTab() {
     if (tabs[activeTab] === tabs[0]) {
+      getActive(autoStartBreak);
       increaseCounter();
       getActiveTab(1);
       getTasks(updateItemAct());
@@ -47,6 +48,7 @@ const CountDownBox = ({
         )
       );
     } else {
+      getActive(autoStartPomodoro);
       getActiveTab(0);
       updateTabs(
         tabs.map((tab, index) =>
@@ -72,7 +74,7 @@ const CountDownBox = ({
               } else {
                 clearInterval(timerInterval);
                 changeTab();
-                setActive(false);
+                // setActive(false);
               }
             }
           }, 1000)
@@ -92,6 +94,7 @@ const CountDownBox = ({
         themeColor={themeColor}
         getActive={getActive}
         active={active}
+        activeTab={activeTab}
       />
     </Stack>
   );
