@@ -4,11 +4,11 @@ import {
   styled,
   Switch,
   Button,
-  Modal,
   Divider,
 } from "@mui/material";
 import React, { useState } from "react";
 import { grey } from "@mui/material/colors";
+import Modal from "../Modal";
 
 const List = ({ children }) => <Stack spacing={2}>{children}</Stack>;
 const ListItem = ({ children }) => (
@@ -81,14 +81,6 @@ const ThemeModal = ({ tab }) => {
   const openHandle = () => setOpen(true);
   const closeHandle = () => setOpen(false);
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "#fff",
-    maxWidth: 780,
-  };
   return (
     <>
       <Button
@@ -102,18 +94,8 @@ const ThemeModal = ({ tab }) => {
         onClick={openHandle}
       ></Button>
       <Modal open={open} onClose={closeHandle}>
-        <Stack
-          maxWidth={780}
-          spacing={2}
-          sx={style}
-          overflow="hidden"
-          borderRadius={2}
-          justifyContent="center"
-        >
-          <Text>Pick a color for {tab.name}</Text>
-          {/* nhớ custom lại cái Modal nhaaa :< */}
-          <Divider />
-        </Stack>
+        <Text>Pick a color for {tab.name}</Text>
+        <Divider />
       </Modal>
     </>
   );

@@ -1,4 +1,4 @@
-import { Button, Divider, Modal, Stack } from "@mui/material";
+import { Button, Divider, Stack } from "@mui/material";
 import React, { useCallback, useContext, useState } from "react";
 import LightButton from "./LightButton";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -11,18 +11,7 @@ import CloseButton from "./CloseButton";
 import { Text } from "./Setting/Components";
 import ThemeSetting from "./Setting/Theme";
 import Context from "../store/Context";
-
-const style = {
-  margin: "auto",
-  position: "relative",
-  maxWidth: "400px",
-  width: "95%",
-  transition: "all 0.2s ease-in 0s",
-  transform: "translateY(20px)",
-  backgroundColor: "#fff",
-  borderRadius: 2,
-  overflow: "hidden",
-};
+import Modal from "./Modal";
 
 const SettingButton = () => {
   const {
@@ -51,10 +40,10 @@ const SettingButton = () => {
     (data) => setLongBreakMinute(data),
     []
   );
-  const toggleStartBreak = useCallback(() => {
-    setStartBreak(!startBreak);
-    console.log(!startBreak);
-  }, [startBreak]);
+  const toggleStartBreak = useCallback(
+    () => setStartBreak(!startBreak),
+    [startBreak]
+  );
   const toggleStartPomodoro = useCallback(
     () => setStartPomodoro(!startPomodoro),
     [startPomodoro]
@@ -77,45 +66,39 @@ const SettingButton = () => {
         <SettingsIcon fontSize="small" />
         <LightTypography>Setting</LightTypography>
       </LightButton>
-      <Modal
-        open={open}
-        onClose={closeHandle}
-        sx={{ overflow: "auto", padding: "48px 0px 58px" }}
-      >
-        <Stack sx={style}>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            p={2}
-          >
-            <Text fontWeight="bold">Setting</Text>
-            <CloseButton onClick={closeHandle} />
-          </Stack>
+      <Modal open={open} onClose={closeHandle}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          p={2}
+        >
+          <Text fontWeight="bold">Setting</Text>
+          <CloseButton onClick={closeHandle} />
+        </Stack>
+        <Divider />
+        <Stack px={2.5} py={3} spacing={4}>
+          <TimerSetting
+            getPomodoroMinute={getPomodoroMinute}
+            getShortBreakMinute={getShortBreakMinute}
+            getLongBreakMinute={getLongBreakMinute}
+            toggleStartBreak={toggleStartBreak}
+            toggleStartPomodoro={toggleStartPomodoro}
+            startBreak={startBreak}
+            startPomodoro={startPomodoro}
+          />
           <Divider />
-          <Stack px={2.5} py={3} spacing={4}>
-            <TimerSetting
-              getPomodoroMinute={getPomodoroMinute}
-              getShortBreakMinute={getShortBreakMinute}
-              getLongBreakMinute={getLongBreakMinute}
-              toggleStartBreak={toggleStartBreak}
-              toggleStartPomodoro={toggleStartPomodoro}
-              startBreak={startBreak}
-              startPomodoro={startPomodoro}
-            />
-            <Divider />
-            <TaskSetting />
-            <Divider />
-            <SoundSetting />
-            <Divider />
-            <ThemeSetting />
-          </Stack>
-          <Stack bgcolor={grey[200]} px={2} py={1.5} justifyContent="flex-end">
-            <Stack ml="auto">
-              <Button color="dark" variant="contained" onClick={saveHandle}>
-                OK
-              </Button>
-            </Stack>
+          <TaskSetting />
+          <Divider />
+          <SoundSetting />
+          <Divider />
+          <ThemeSetting />
+        </Stack>
+        <Stack bgcolor={grey[200]} px={2} py={1.5} justifyContent="flex-end">
+          <Stack ml="auto">
+            <Button color="dark" variant="contained" onClick={saveHandle}>
+              OK
+            </Button>
           </Stack>
         </Stack>
       </Modal>
