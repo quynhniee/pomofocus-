@@ -27,8 +27,6 @@ const CountDownBox = ({
   const getActive = useCallback((data) => {
     setActive(data);
   }, []);
-  // console.log(activeTab);
-  // console.log(tabs);
 
   function updateItemAct() {
     const newItem = { ...activeItem, act: activeItem.act + 1 };
@@ -74,7 +72,6 @@ const CountDownBox = ({
               } else {
                 clearInterval(timerInterval);
                 changeTab();
-                // setActive(false);
               }
             }
           }, 1000)

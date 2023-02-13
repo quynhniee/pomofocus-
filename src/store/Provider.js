@@ -6,6 +6,7 @@ const Provider = ({ children }) => {
   const theme = useTheme();
   const [autoStartBreak, setAutoStartBreak] = useState(true);
   const [autoStartPomodoro, setAutoStartPomodoro] = useState(false);
+  const [longBreakInterval, setLongBreakInterval] = useState(4);
   const [tabs, setTabs] = useState([
     {
       name: "Pomodoro",
@@ -32,6 +33,7 @@ const Provider = ({ children }) => {
 
   const updateAutoStartBreak = (data) => setAutoStartBreak(data);
   const updateAutoStartPomodoro = (data) => setAutoStartPomodoro(data);
+  const updateLongBreakInterval = (data) => setLongBreakInterval(data);
   const updateTabs = useCallback((data) => setTabs(data), []);
   const updatePomodoro = useCallback(
     (data) => setTabs([data, tabs[1], tabs[2]]),
@@ -50,6 +52,7 @@ const Provider = ({ children }) => {
     <TabsContext.Provider
       value={{
         tabs,
+        longBreakInterval,
         updateTabs,
         updatePomodoro,
         updateShortBreak,
@@ -58,6 +61,7 @@ const Provider = ({ children }) => {
         autoStartPomodoro,
         updateAutoStartBreak,
         updateAutoStartPomodoro,
+        updateLongBreakInterval,
       }}
     >
       {children}

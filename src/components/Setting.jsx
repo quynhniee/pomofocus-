@@ -21,6 +21,8 @@ const SettingButton = () => {
     autoStartPomodoro,
     updateAutoStartBreak,
     updateAutoStartPomodoro,
+    longBreakInterval,
+    updateLongBreakInterval,
   } = useContext(Context);
   const pomodoro = tabs[0],
     shortBreak = tabs[1],
@@ -31,6 +33,7 @@ const SettingButton = () => {
   const [longBreakMinute, setLongBreakMinute] = useState(longBreak.minute);
   const [startBreak, setStartBreak] = useState(autoStartBreak);
   const [startPomodoro, setStartPomodoro] = useState(autoStartPomodoro);
+  const [breakInterval, setBreakInterval] = useState(longBreakInterval);
   const getPomodoroMinute = useCallback((data) => setPomodoroMinute(data), []);
   const getShortBreakMinute = useCallback(
     (data) => setShortBreakMinute(data),
@@ -48,6 +51,10 @@ const SettingButton = () => {
     () => setStartPomodoro(!startPomodoro),
     [startPomodoro]
   );
+  const getLongBreakInterval = useCallback(
+    (data) => setBreakInterval(data),
+    []
+  );
   const openHandle = () => setOpen(true);
   const closeHandle = () => setOpen(false);
   const saveHandle = () => {
@@ -58,6 +65,7 @@ const SettingButton = () => {
     ]);
     updateAutoStartBreak(startBreak);
     updateAutoStartPomodoro(startPomodoro);
+    updateLongBreakInterval(breakInterval);
     setOpen(false);
   };
   return (
@@ -86,6 +94,7 @@ const SettingButton = () => {
             toggleStartPomodoro={toggleStartPomodoro}
             startBreak={startBreak}
             startPomodoro={startPomodoro}
+            getLongBreakInterval={getLongBreakInterval}
           />
           <Divider />
           <TaskSetting />

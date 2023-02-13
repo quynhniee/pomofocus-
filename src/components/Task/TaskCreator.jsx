@@ -24,6 +24,7 @@ const TaskCreator = ({ getExpand, task, tasks, getTasks }) => {
   );
   const saveHandle = () => {
     const newTask = { ...taskUpdate, content: content };
+    if (newTask.content.trim() === "") return;
     if (task)
       getTasks(tasks.map((t) => (t.id === taskUpdate.id ? newTask : t)));
     else getTasks(tasks.concat([newTask]));

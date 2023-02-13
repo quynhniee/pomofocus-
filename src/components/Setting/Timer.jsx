@@ -13,9 +13,9 @@ const Timer = ({
   toggleStartPomodoro,
   startBreak,
   startPomodoro,
+  getLongBreakInterval,
 }) => {
-  const { tabs } = useContext(Context);
-
+  const { tabs, longBreakInterval } = useContext(Context);
   const onChangeHandle = (event, index) => {
     const time = +event.target.value;
     if (index === 0) getPomodoroMinute(time);
@@ -64,8 +64,11 @@ const Timer = ({
           <Input
             disableUnderline
             type="number"
-            defaultValue={4}
+            defaultValue={+longBreakInterval}
             sx={{ maxWidth: 75 }}
+            onChange={(e) => {
+              getLongBreakInterval(+e.target.value);
+            }}
           />
         </ListItem>
       </List>

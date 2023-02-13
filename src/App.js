@@ -54,9 +54,12 @@ function App() {
   const getTasks = useCallback((data) => setTasks(data), []);
 
   useEffect(() => {
-    if (tasks.length === 0) setActiveItem({ content: "Time to focus!" });
+    if (tasks.length === 0)
+      setActiveItem({
+        content: activeTab === 0 ? "Time to focus!" : "Time for a break!",
+      });
     console.log(tasks);
-  }, [tasks]);
+  }, [activeTab, tasks]);
   return (
     <Stack
       sx={{

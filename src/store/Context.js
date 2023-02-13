@@ -16,6 +16,8 @@ const Context = createContext({
   updateLongBreak: () => {},
   autoStartBreak: null,
   autoStartPomodoro: null,
+  longBreakInterval: null,
+  updateLongBreakInterval: () => {},
 });
 
 export default Context;
