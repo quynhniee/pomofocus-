@@ -2,7 +2,7 @@ import React from "react";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { IOSSwitch, List, ListItem, Text, Title } from "./Components";
 
-const Task = () => {
+const Task = ({ autoSwitchTasks, toggleSwitchTasks }) => {
   return (
     <List>
       <Title>
@@ -11,7 +11,10 @@ const Task = () => {
       </Title>
       <ListItem>
         <Text>Auto Switch Tasks</Text>
-        <IOSSwitch />
+        <IOSSwitch
+          defaultChecked={autoSwitchTasks}
+          onChange={toggleSwitchTasks}
+        />
       </ListItem>
     </List>
   );

@@ -7,6 +7,7 @@ const Provider = ({ children }) => {
   const [autoStartBreak, setAutoStartBreak] = useState(true);
   const [autoStartPomodoro, setAutoStartPomodoro] = useState(false);
   const [longBreakInterval, setLongBreakInterval] = useState(4);
+  const [autoSwitchTasks, setAutoSwitchTasks] = useState(false);
   const [tabs, setTabs] = useState([
     {
       name: "Pomodoro",
@@ -34,6 +35,7 @@ const Provider = ({ children }) => {
   const updateAutoStartBreak = (data) => setAutoStartBreak(data);
   const updateAutoStartPomodoro = (data) => setAutoStartPomodoro(data);
   const updateLongBreakInterval = (data) => setLongBreakInterval(data);
+  const updateAutoSwitchTasks = (data) => setAutoSwitchTasks(data);
   const updateTabs = useCallback((data) => setTabs(data), []);
   const updatePomodoro = useCallback(
     (data) => setTabs([data, tabs[1], tabs[2]]),
@@ -62,6 +64,8 @@ const Provider = ({ children }) => {
         updateAutoStartBreak,
         updateAutoStartPomodoro,
         updateLongBreakInterval,
+        autoSwitchTasks,
+        updateAutoSwitchTasks,
       }}
     >
       {children}

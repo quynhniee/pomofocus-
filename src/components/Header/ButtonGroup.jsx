@@ -1,6 +1,6 @@
 import { Stack } from "@mui/system";
 import React from "react";
-import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
+// import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LightButton from "../LightButton";
 import LightTypography from "../LightTypography";
@@ -9,10 +9,10 @@ import SettingButton from "../Setting";
 const ButtonGroup = () => {
   return (
     <Stack direction="row" spacing={1}>
-      <LightButton>
+      {/* <LightButton>
         <AssessmentOutlinedIcon fontSize="small" />
         <LightTypography>Report</LightTypography>
-      </LightButton>
+      </LightButton> */}
       <SettingButton />
 
       <LightButton>

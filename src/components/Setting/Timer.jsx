@@ -11,11 +11,10 @@ const Timer = ({
   getLongBreakMinute,
   toggleStartBreak,
   toggleStartPomodoro,
-  startBreak,
-  startPomodoro,
   getLongBreakInterval,
 }) => {
-  const { tabs, longBreakInterval } = useContext(Context);
+  const { tabs, longBreakInterval, autoStartBreak, autoStartPomodoro } =
+    useContext(Context);
   const onChangeHandle = (event, index) => {
     const time = +event.target.value;
     if (index === 0) getPomodoroMinute(time);
@@ -53,11 +52,17 @@ const Timer = ({
         </ListItem>
         <ListItem>
           <Text>Auto Start Breaks</Text>
-          <IOSSwitch checked={startBreak} onChange={toggleStartBreak} />
+          <IOSSwitch
+            defaultChecked={autoStartBreak}
+            onChange={toggleStartBreak}
+          />
         </ListItem>
         <ListItem>
           <Text>Auto Start Pomodoros</Text>
-          <IOSSwitch checked={startPomodoro} onChange={toggleStartPomodoro} />
+          <IOSSwitch
+            defaultChecked={autoStartPomodoro}
+            onChange={toggleStartPomodoro}
+          />
         </ListItem>
         <ListItem>
           <Text>Long Break interval</Text>

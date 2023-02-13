@@ -17,7 +17,9 @@ const Context = createContext({
   autoStartBreak: null,
   autoStartPomodoro: null,
   longBreakInterval: null,
+  autoSwitchTasks: null,
   updateLongBreakInterval: () => {},
+  updateAutoSwitchTasks: () => {},
 });
 
 export default Context;

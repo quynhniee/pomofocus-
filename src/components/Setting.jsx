@@ -23,6 +23,8 @@ const SettingButton = () => {
     updateAutoStartPomodoro,
     longBreakInterval,
     updateLongBreakInterval,
+    autoSwitchTasks,
+    updateAutoSwitchTasks,
   } = useContext(Context);
   const pomodoro = tabs[0],
     shortBreak = tabs[1],
@@ -34,6 +36,7 @@ const SettingButton = () => {
   const [startBreak, setStartBreak] = useState(autoStartBreak);
   const [startPomodoro, setStartPomodoro] = useState(autoStartPomodoro);
   const [breakInterval, setBreakInterval] = useState(longBreakInterval);
+  const [switchTasks, setSwitchTasks] = useState(autoSwitchTasks);
   const getPomodoroMinute = useCallback((data) => setPomodoroMinute(data), []);
   const getShortBreakMinute = useCallback(
     (data) => setShortBreakMinute(data),
@@ -55,6 +58,10 @@ const SettingButton = () => {
     (data) => setBreakInterval(data),
     []
   );
+  const toggleSwitchTasks = useCallback(
+    () => setSwitchTasks(!switchTasks),
+    [switchTasks]
+  );
   const openHandle = () => setOpen(true);
   const closeHandle = () => setOpen(false);
   const saveHandle = () => {
@@ -66,8 +73,10 @@ const SettingButton = () => {
     updateAutoStartBreak(startBreak);
     updateAutoStartPomodoro(startPomodoro);
     updateLongBreakInterval(breakInterval);
+    updateAutoSwitchTasks(switchTasks);
     setOpen(false);
   };
+
   return (
     <div>
       <LightButton onClick={openHandle}>
@@ -92,12 +101,13 @@ const SettingButton = () => {
             getLongBreakMinute={getLongBreakMinute}
             toggleStartBreak={toggleStartBreak}
             toggleStartPomodoro={toggleStartPomodoro}
-            startBreak={startBreak}
-            startPomodoro={startPomodoro}
             getLongBreakInterval={getLongBreakInterval}
           />
           <Divider />
-          <TaskSetting />
+          <TaskSetting
+            autoSwitchTasks={autoSwitchTasks}
+            toggleSwitchTasks={toggleSwitchTasks}
+          />
           <Divider />
           <SoundSetting />
           <Divider />
