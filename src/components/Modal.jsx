@@ -10,6 +10,9 @@ const CustomModal = ({ open, onClose, children }) => {
     width: "100%",
     height: "100vh",
     overflow: "hidden scroll",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   };
   const stackStyle = {
     position: "relative",

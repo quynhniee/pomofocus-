@@ -5,8 +5,8 @@ import { Stack } from "@mui/system";
 import Context from "../../store/Context";
 
 const Theme = () => {
-  const { tabs } = useContext(Context);
-
+  const { tabs, updatePomodoro, updateShortBreak, updateLongBreak } =
+    useContext(Context);
   return (
     <List>
       <Title>
@@ -16,9 +16,9 @@ const Theme = () => {
       <ListItem>
         <Text>Color Themes</Text>
         <Stack direction="row" spacing={1.5}>
-          <ThemeModal tab={tabs[0]} />
-          <ThemeModal tab={tabs[1]} />
-          <ThemeModal tab={tabs[2]} />
+          <ThemeModal tab={tabs[0]} updateTab={updatePomodoro} />
+          <ThemeModal tab={tabs[1]} updateTab={updateShortBreak} />
+          <ThemeModal tab={tabs[2]} updateTab={updateLongBreak} />
         </Stack>
       </ListItem>
     </List>

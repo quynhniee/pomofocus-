@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import { grey } from "@mui/material/colors";
 import Modal from "../Modal";
+import Palette from "../Palette";
 
 const List = ({ children }) => <Stack spacing={2}>{children}</Stack>;
 const ListItem = ({ children }) => (
@@ -76,7 +77,7 @@ const IOSSwitch = styled((props) => (
   },
 }));
 
-const ThemeModal = ({ tab }) => {
+const ThemeModal = ({ tab, updateTab }) => {
   const [open, setOpen] = useState(false);
   const openHandle = () => setOpen(true);
   const closeHandle = () => setOpen(false);
@@ -94,8 +95,11 @@ const ThemeModal = ({ tab }) => {
         onClick={openHandle}
       ></Button>
       <Modal open={open} onClose={closeHandle}>
-        <Text>Pick a color for {tab.name}</Text>
+        <Stack p={2} alignItems="center">
+          <Text variant="span">Pick a color for {tab.name}</Text>
+        </Stack>
         <Divider />
+        <Palette tab={tab} updateTab={updateTab} closeHandle={closeHandle} />
       </Modal>
     </>
   );
