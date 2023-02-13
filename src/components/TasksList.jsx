@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Stack, Typography, List, Divider } from "@mui/material";
 import { useState } from "react";
 import TaskMenu from "./Task/TaskMenu";
@@ -7,25 +7,10 @@ import TaskItem from "./Task/TaskItem";
 import TaskCheckButton from "./Task/TaskCheckButton";
 import TaskCreator from "./Task/TaskCreator";
 
-const TasksList = ({
-  themeColor,
-  getActiveItem,
-  getActNumber,
-  getPomosNumber,
-  tasks,
-  getTasks,
-}) => {
+const TasksList = ({ themeColor, tasks, getTasks }) => {
   const [expand, setExpand] = useState(false);
   const getExpand = (data) => setExpand(data);
-  useEffect(() => {
-    const act = tasks.reduce((sum, val) => sum + val.act, 0);
-    const pomos = tasks.reduce(
-      (sum, val) => sum + Math.max(val.act, val.EP),
-      0
-    );
-    getActNumber(act);
-    getPomosNumber(pomos);
-  }, [getActNumber, getPomosNumber, tasks]);
+
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between">
@@ -37,13 +22,7 @@ const TasksList = ({
       <Divider sx={{ bgcolor: "#ffffff80", height: "2px", my: "0.8rem" }} />
       <List>
         {tasks.map((task, index) => (
-          <TaskItem
-            tasks={tasks}
-            getTasks={getTasks}
-            task={task}
-            key={index}
-            getActiveItem={getActiveItem}
-          >
+          <TaskItem tasks={tasks} getTasks={getTasks} task={task} key={index}>
             <TaskCheckButton
               tasks={tasks}
               getTasks={getTasks}

@@ -4,10 +4,10 @@ import TabsContext from "./Context";
 
 const Provider = ({ children }) => {
   const theme = useTheme();
-  const [autoStartBreak, setAutoStartBreak] = useState(true);
+  const [autoStartBreak, setAutoStartBreak] = useState(false);
   const [autoStartPomodoro, setAutoStartPomodoro] = useState(false);
   const [longBreakInterval, setLongBreakInterval] = useState(4);
-  const [autoSwitchTasks, setAutoSwitchTasks] = useState(false);
+  const [autoSwitchTasks, setAutoSwitchTasks] = useState(true);
   const [tabs, setTabs] = useState([
     {
       name: "Pomodoro",

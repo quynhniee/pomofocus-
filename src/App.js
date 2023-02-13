@@ -1,11 +1,11 @@
-import { Container, Stack } from "@mui/system";
+import { Container, Stack, Typography } from "@mui/material";
 import { useCallback, useContext, useEffect, useState } from "react";
 import Header from "./components/Header";
 import Result from "./components/Result";
 import CountDownBox from "./components/CountDownBox";
 import TasksList from "./components/TasksList";
 import Context from "./store/Context";
-import { Typography } from "@mui/material";
+// import { Typography } from "@mui/material";
 
 function App() {
   const { tabs } = useContext(Context);
@@ -36,30 +36,33 @@ function App() {
       EP: 2,
     },
   ]);
-  const defaultActiveItem = () => {
-    for (const task of tasks) if (task.isActive === true) return task;
-    return { content: "Time to focus!" };
-  };
-  const [activeItem, setActiveItem] = useState(defaultActiveItem);
   const [activeTab, setActiveTab] = useState(0);
+  const defaultActiveItem = useCallback(() => {
+    if (tasks.length === 0)
+      return {
+        content: activeTab === 0 ? "Time to focus!" : "Time for a break!",
+      };
+    for (const task of tasks) if (task.isActive === true) return task;
+  }, [activeTab, tasks]);
+  const [activeItem, setActiveItem] = useState(defaultActiveItem);
   const [counter, setCounter] = useState(0);
   const [actNumber, setActNumber] = useState(0);
   const [pomosNumber, setPomosNumber] = useState(0);
   const getThemeColor = useCallback((data) => setThemeColor(data), []);
-  const getActiveItem = useCallback((data) => setActiveItem(data), []);
   const getActiveTab = useCallback((data) => setActiveTab(data), []);
   const increaseCounter = useCallback(() => setCounter(counter + 1), [counter]);
-  const getActNumber = useCallback((data) => setActNumber(data), []);
-  const getPomosNumber = useCallback((data) => setPomosNumber(data), []);
   const getTasks = useCallback((data) => setTasks(data), []);
 
   useEffect(() => {
-    if (tasks.length === 0)
-      setActiveItem({
-        content: activeTab === 0 ? "Time to focus!" : "Time for a break!",
-      });
-    console.log(tasks);
-  }, [activeTab, tasks]);
+    setActiveItem(defaultActiveItem());
+    const act = tasks.reduce((sum, val) => sum + val.act, 0);
+    const pomos = tasks.reduce(
+      (sum, val) => sum + Math.max(val.act, val.EP),
+      0
+    );
+    setActNumber(act);
+    setPomosNumber(pomos);
+  }, [activeTab, defaultActiveItem, tasks]);
 
   return (
     <Stack
@@ -80,7 +83,6 @@ function App() {
             activeTab={activeTab}
             getActiveTab={getActiveTab}
             activeItem={activeItem}
-            getActiveItem={getActiveItem}
             tasks={tasks}
             getTasks={getTasks}
           />
@@ -96,9 +98,6 @@ function App() {
             tasks={tasks}
             getTasks={getTasks}
             themeColor={themeColor}
-            getActiveItem={getActiveItem}
-            getActNumber={getActNumber}
-            getPomosNumber={getPomosNumber}
           />
           <Result actNumber={actNumber} pomosNumber={pomosNumber} />
         </Stack>

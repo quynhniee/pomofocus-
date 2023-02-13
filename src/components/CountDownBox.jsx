@@ -14,7 +14,6 @@ const CountDownBox = ({
   activeTab,
   getActiveTab,
   activeItem,
-  getActiveItem,
   tasks,
   getTasks,
 }) => {
@@ -24,6 +23,7 @@ const CountDownBox = ({
     autoStartBreak,
     autoStartPomodoro,
     longBreakInterval,
+    autoSwitchTasks,
   } = useContext(Context);
   const [active, setActive] = useState(
     activeTab === 0 ? autoStartPomodoro : autoStartBreak
@@ -35,9 +35,31 @@ const CountDownBox = ({
   }, []);
 
   function updateItemAct() {
-    const newItem = { ...activeItem, act: activeItem.act + 1 };
-    getActiveItem(newItem);
-    return tasks.map((task) => (task.id === activeItem.id ? newItem : task));
+    let newItem = { ...activeItem, act: activeItem.act + 1 };
+    let newTasks = tasks.map((task) =>
+      task.id === activeItem.id ? newItem : task
+    );
+    if (autoSwitchTasks === true && newItem.act >= newItem.EP) {
+      const index = tasks.indexOf(activeItem);
+      const length = tasks.length;
+      newItem = {
+        ...newItem,
+        isActive: true,
+        isCompleted: true,
+      };
+      newTasks = newTasks.map((task, i) => {
+        if (index === i)
+          return {
+            ...task,
+            isCompleted: true,
+            isActive: index !== length - 1 ? false : true,
+          };
+        if (index + 1 < length && index + 1 === i)
+          return { ...task, isActive: true };
+        return task;
+      });
+    }
+    return newTasks;
   }
 
   function changeTab() {
@@ -116,7 +138,6 @@ const CountDownBox = ({
         activeTab={activeTab}
       />
       {active === true ? <SkipButton onClick={changeTab} /> : null}
-      {/* <SkipButton onClick={changeTab} /> */}
     </Stack>
   );
 };
