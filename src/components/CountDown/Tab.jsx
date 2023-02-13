@@ -3,7 +3,7 @@ import { Stack } from "@mui/system";
 import React, { useContext } from "react";
 import Context from "../../store/Context";
 
-const Tab = ({ getActiveTab }) => {
+const Tab = ({ getActiveTab, getActive }) => {
   const { tabs, updateTabs } = useContext(Context);
   return (
     <Stack direction="row">
@@ -24,6 +24,7 @@ const Tab = ({ getActiveTab }) => {
                   : { ...tab, isActive: false }
               )
             );
+            getActive(false);
           }}
         >
           <Typography

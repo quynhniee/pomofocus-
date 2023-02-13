@@ -1,8 +1,8 @@
 import { Stack } from "@mui/material";
-import React, { useContext } from "react";
-import { useEffect, useState, useCallback } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import Context from "../store/Context";
 import CountDown from "./CountDown/CountDown";
+import SkipButton from "./CountDown/SkipButton";
 import Tab from "./CountDown/Tab";
 import TimerButton from "./CountDown/TimerButton";
 
@@ -79,6 +79,7 @@ const CountDownBox = ({
     setSecond(tabs[activeTab].second);
     getTheme(tabs[activeTab].themeColor);
   }, [activeTab, getTheme, tabs]);
+
   useEffect(() => {
     const timerInterval =
       active === true
@@ -97,14 +98,16 @@ const CountDownBox = ({
         : null;
     return () => clearInterval(timerInterval);
   });
+
   return (
     <Stack
       sx={{ backgroundColor: "#ffffff2b", borderRadius: "0.3rem" }}
       padding={2}
       paddingBottom={3}
       alignItems="center"
+      position="relative"
     >
-      <Tab getActiveTab={getActiveTab} />
+      <Tab getActiveTab={getActiveTab} getActive={getActive} />
       <CountDown minute={minute} second={second} />
       <TimerButton
         themeColor={themeColor}
@@ -112,6 +115,8 @@ const CountDownBox = ({
         active={active}
         activeTab={activeTab}
       />
+      {active === true ? <SkipButton onClick={changeTab} /> : null}
+      {/* <SkipButton onClick={changeTab} /> */}
     </Stack>
   );
 };

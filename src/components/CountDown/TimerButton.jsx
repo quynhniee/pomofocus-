@@ -9,7 +9,7 @@ const TimerButton = ({ themeColor, getActive, active }) => {
     <Stack position="relative">
       <Button
         sx={{
-          width: "10rem",
+          width: "12rem",
           height: "3.5rem",
           backgroundColor: "#ebebeb",
           transform: "translate(0, 100%)",
@@ -20,7 +20,7 @@ const TimerButton = ({ themeColor, getActive, active }) => {
         sx={{
           backgroundColor: "white",
           ":hover": { backgroundColor: "white" },
-          width: "10rem",
+          width: "12rem",
           height: "3.5rem",
           xIndex: "3",
           transform: active === false ? "translate(0, -0.4rem)" : "",
