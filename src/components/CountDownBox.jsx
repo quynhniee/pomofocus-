@@ -9,6 +9,7 @@ import TimerButton from "./CountDown/TimerButton";
 const CountDownBox = ({
   themeColor,
   getTheme,
+  counter,
   increaseCounter,
   activeTab,
   getActiveTab,
@@ -17,8 +18,13 @@ const CountDownBox = ({
   tasks,
   getTasks,
 }) => {
-  const { tabs, updateTabs, autoStartBreak, autoStartPomodoro } =
-    useContext(Context);
+  const {
+    tabs,
+    updateTabs,
+    autoStartBreak,
+    autoStartPomodoro,
+    longBreakInterval,
+  } = useContext(Context);
   const [active, setActive] = useState(
     activeTab === 0 ? autoStartPomodoro : autoStartBreak
   );
@@ -38,13 +44,26 @@ const CountDownBox = ({
     if (tabs[activeTab] === tabs[0]) {
       getActive(autoStartBreak);
       increaseCounter();
-      getActiveTab(1);
       getTasks(updateItemAct());
-      updateTabs(
-        tabs.map((tab, index) =>
-          index === 1 ? { ...tab, isActive: true } : { ...tab, isActive: false }
-        )
-      );
+      if ((counter + 1) % longBreakInterval === 0) {
+        getActiveTab(2);
+        updateTabs(
+          tabs.map((tab, index) =>
+            index === 2
+              ? { ...tab, isActive: true }
+              : { ...tab, isActive: false }
+          )
+        );
+      } else {
+        getActiveTab(1);
+        updateTabs(
+          tabs.map((tab, index) =>
+            index === 1
+              ? { ...tab, isActive: true }
+              : { ...tab, isActive: false }
+          )
+        );
+      }
     } else {
       getActive(autoStartPomodoro);
       getActiveTab(0);

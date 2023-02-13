@@ -60,6 +60,7 @@ function App() {
       });
     console.log(tasks);
   }, [activeTab, tasks]);
+
   return (
     <Stack
       sx={{
@@ -74,6 +75,7 @@ function App() {
           <CountDownBox
             themeColor={themeColor}
             getTheme={getThemeColor}
+            counter={counter}
             increaseCounter={increaseCounter}
             activeTab={activeTab}
             getActiveTab={getActiveTab}
