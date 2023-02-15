@@ -20,6 +20,8 @@ const Context = createContext({
   autoSwitchTasks: null,
   updateLongBreakInterval: () => {},
   updateAutoSwitchTasks: () => {},
+  currentThemeColor: null,
+  updateCurrentThemeColor: () => {},
 });
 
 export default Context;

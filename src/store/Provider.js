@@ -4,6 +4,9 @@ import TabsContext from "./Context";
 
 const Provider = ({ children }) => {
   const theme = useTheme();
+  const [currentThemeColor, setCurrentThemeColor] = useState(
+    theme.palette.red.main
+  );
   const [autoStartBreak, setAutoStartBreak] = useState(false);
   const [autoStartPomodoro, setAutoStartPomodoro] = useState(false);
   const [longBreakInterval, setLongBreakInterval] = useState(4);
@@ -11,27 +14,28 @@ const Provider = ({ children }) => {
   const [tabs, setTabs] = useState([
     {
       name: "Pomodoro",
-      minute: 0,
-      second: 10,
+      minute: 25,
+      second: 0,
       themeColor: theme.palette.red.main,
       isActive: true,
     },
     {
       name: "Short Break",
-      minute: 0,
-      second: 5,
+      minute: 5,
+      second: 0,
       themeColor: theme.palette.cyan.main,
       isActive: false,
     },
     {
       name: "Long Break",
-      minute: 1,
+      minute: 10,
       second: 0,
       themeColor: theme.palette.blue.main,
       isActive: false,
     },
   ]);
 
+  const updateCurrentThemeColor = (data) => setCurrentThemeColor(data);
   const updateAutoStartBreak = (data) => setAutoStartBreak(data);
   const updateAutoStartPomodoro = (data) => setAutoStartPomodoro(data);
   const updateLongBreakInterval = (data) => setLongBreakInterval(data);
@@ -66,6 +70,8 @@ const Provider = ({ children }) => {
         updateLongBreakInterval,
         autoSwitchTasks,
         updateAutoSwitchTasks,
+        currentThemeColor,
+        updateCurrentThemeColor,
       }}
     >
       {children}

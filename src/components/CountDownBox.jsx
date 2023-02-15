@@ -7,8 +7,8 @@ import Tab from "./CountDown/Tab";
 import TimerButton from "./CountDown/TimerButton";
 
 const CountDownBox = ({
-  themeColor,
-  getTheme,
+  // themeColor,
+  // getTheme,
   counter,
   increaseCounter,
   activeTab,
@@ -24,6 +24,8 @@ const CountDownBox = ({
     autoStartPomodoro,
     longBreakInterval,
     autoSwitchTasks,
+    currentThemeColor,
+    updateCurrentThemeColor,
   } = useContext(Context);
   const [active, setActive] = useState(
     activeTab === 0 ? autoStartPomodoro : autoStartBreak
@@ -99,8 +101,9 @@ const CountDownBox = ({
   useEffect(() => {
     setMinute(tabs[activeTab].minute);
     setSecond(tabs[activeTab].second);
-    getTheme(tabs[activeTab].themeColor);
-  }, [activeTab, getTheme, tabs]);
+    // getTheme(tabs[activeTab].themeColor);
+    updateCurrentThemeColor(tabs[activeTab].themeColor);
+  }, [activeTab, tabs, updateCurrentThemeColor]);
 
   useEffect(() => {
     const timerInterval =
@@ -132,7 +135,7 @@ const CountDownBox = ({
       <Tab getActiveTab={getActiveTab} getActive={getActive} />
       <CountDown minute={minute} second={second} />
       <TimerButton
-        themeColor={themeColor}
+        themeColor={currentThemeColor}
         getActive={getActive}
         active={active}
         activeTab={activeTab}

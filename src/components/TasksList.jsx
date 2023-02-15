@@ -7,7 +7,7 @@ import TaskItem from "./Task/TaskItem";
 import TaskCheckButton from "./Task/TaskCheckButton";
 import TaskCreator from "./Task/TaskCreator";
 
-const TasksList = ({ themeColor, tasks, getTasks }) => {
+const TasksList = ({ tasks, getTasks }) => {
   const [expand, setExpand] = useState(false);
   const getExpand = (data) => setExpand(data);
 
@@ -23,12 +23,7 @@ const TasksList = ({ themeColor, tasks, getTasks }) => {
       <List>
         {tasks.map((task, index) => (
           <TaskItem tasks={tasks} getTasks={getTasks} task={task} key={index}>
-            <TaskCheckButton
-              tasks={tasks}
-              getTasks={getTasks}
-              task={task}
-              themeColor={themeColor}
-            />
+            <TaskCheckButton tasks={tasks} getTasks={getTasks} task={task} />
             <Stack
               marginLeft="auto"
               marginRight={2}

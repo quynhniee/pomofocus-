@@ -5,6 +5,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LightButton from "../LightButton";
 import LightTypography from "../LightTypography";
 import SettingButton from "../Setting";
+import { Link } from "react-router-dom";
 
 const ButtonGroup = () => {
   return (
@@ -15,10 +16,12 @@ const ButtonGroup = () => {
       </LightButton> */}
       <SettingButton />
 
-      <LightButton>
-        <AccountCircleIcon fontSize="small" />
-        <LightTypography>Login</LightTypography>
-      </LightButton>
+      <Link to="/login">
+        <LightButton>
+          <AccountCircleIcon fontSize="small" />
+          <LightTypography>Login</LightTypography>
+        </LightButton>
+      </Link>
     </Stack>
   );
 };
