@@ -1,8 +1,9 @@
 import { Divider } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
+import { Link } from "react-router-dom";
 import ButtonGroup from "./Header/ButtonGroup";
-import Logo from "./Header/Logo";
+import Logo from "./Logo";
 
 const Header = () => {
   return (
@@ -14,7 +15,9 @@ const Header = () => {
         spacing={2}
         marginY={2}
       >
-        <Logo />
+        <Link to="/app">
+          <Logo />
+        </Link>
         <ButtonGroup />
       </Stack>
       <Divider />

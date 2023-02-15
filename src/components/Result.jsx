@@ -7,17 +7,17 @@ const Result = ({ actNumber, pomosNumber }) => {
       sx={{ backgroundColor: "#ffffff2b", borderTop: "1px solid white" }}
       alignItems="baseline"
       justifyContent="center"
-      py={3}
+      py={2.5}
       direction="row"
       color="#ffffffb3"
-      fontSize={14}
+      spacing={1}
     >
-      Pomos:
-      <Typography fontSize={20} fontWeight="bold">
+      <Typography>Pomos:</Typography>
+      <Typography fontSize={25} fontWeight="bold" color="#fff">
         {actNumber}
       </Typography>
-      /
-      <Typography fontSize={20} fontWeight="bold">
+      <Typography>/</Typography>
+      <Typography fontSize={25} fontWeight="bold" color="#fff">
         {pomosNumber}
       </Typography>
     </Stack>
