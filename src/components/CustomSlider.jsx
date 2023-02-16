@@ -23,8 +23,8 @@ const GreySlider = styled(Slider)({
     },
   },
 });
-const CustomSlider = ({ defaultValue }) => {
-  const [value, setValue] = useState(defaultValue);
+const CustomSlider = ({ defaultValue, changeVolume }) => {
+  const [value, setValue] = useState(defaultValue * 100);
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -37,7 +37,13 @@ const CustomSlider = ({ defaultValue }) => {
       alignItems="center"
     >
       <Text color={grey[400]}>{value}</Text>
-      <GreySlider value={value} onChange={handleSliderChange} />
+      <GreySlider
+        value={value}
+        onChange={handleSliderChange}
+        onMouseUp={() => {
+          changeVolume(value / 100);
+        }}
+      />
     </Stack>
   );
 };

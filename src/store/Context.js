@@ -22,6 +22,8 @@ const Context = createContext({
   updateAutoSwitchTasks: () => {},
   currentThemeColor: null,
   updateCurrentThemeColor: () => {},
+  alarmSound: { sound: null, volume: null },
+  updateAlarmSound: () => {},
 });
 
 export default Context;

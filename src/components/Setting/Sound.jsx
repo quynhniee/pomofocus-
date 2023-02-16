@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect, useContext, useCallback } from "react";
 import { List, ListItem, Text, Title } from "./Components";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { Input, MenuItem, Select, Typography } from "@mui/material";
 import CustomSlider from "../CustomSlider";
+import Kitty from "D:/Workspace/pomofocus-/src/assets/sound/AlarmSound/kitty-sound.wav";
+import Dog from "D:/Workspace/pomofocus-/src/assets/sound/AlarmSound/dog-sound.wav";
+import Digital from "D:/Workspace/pomofocus-/src/assets/sound/AlarmSound/digital-clock-sound.wav";
+import Alarm from "D:/Workspace/pomofocus-/src/assets/sound/AlarmSound/clock-alarm-8761.mp3";
+import Context from "../../store/Context";
 
-const Sound = () => {
+const Sound = ({ alarm, getAlarmSound, getAlarmVolume }) => {
+  const { alarmSound } = useContext(Context);
   const alarmSounds = [
-    { name: "Bell" },
-    { name: "Bird" },
-    { name: "Digital" },
-    { name: "Kitchen" },
-    { name: "Wood" },
+    { name: "Kitty", sound: Kitty },
+    { name: "Dog", sound: Dog },
+    { name: "Digital", sound: Digital },
+    { name: "Alarm", sound: Alarm },
   ];
   const tickingSounds = [
     "None",
@@ -19,6 +24,21 @@ const Sound = () => {
     "White Noise",
     "Brown Noise",
   ];
+
+  const playSound = (sound = alarm.sound, volume = alarm.volume) => {
+    let audio = new Audio(sound);
+    audio.volume = volume;
+    audio.play();
+  };
+  // chưa fix lỗi update lại alarm mỗi lần mở setting
+  const changeVolumeHandle = (value) => {
+    getAlarmVolume(value);
+    playSound(alarm.sound, value);
+  };
+  const changeSoundHandle = (e) => {
+    getAlarmSound(e.target.value);
+    playSound(e.target.value, alarm.volume);
+  };
   return (
     <List>
       <Title>
@@ -29,18 +49,22 @@ const Sound = () => {
         <ListItem>
           <Text>Alarm Sound</Text>
           <Select
-            defaultValue={alarmSounds[3].name}
+            defaultValue={alarmSound.sound}
             sx={{ border: "none", width: 130 }}
+            onChange={changeSoundHandle}
           >
             {alarmSounds.map((sound) => (
-              <MenuItem key={sound.name} value={sound.name}>
+              <MenuItem key={sound.name} value={sound.sound}>
                 {sound.name}
               </MenuItem>
             ))}
           </Select>
         </ListItem>
         <ListItem>
-          <CustomSlider defaultValue={50} />
+          <CustomSlider
+            defaultValue={alarmSound.volume}
+            changeVolume={changeVolumeHandle}
+          />
         </ListItem>
         <ListItem>
           <Typography ml="auto" mr={2}>
@@ -73,7 +97,7 @@ const Sound = () => {
           </Select>
         </ListItem>
         <ListItem>
-          <CustomSlider defaultValue={50} />
+          <CustomSlider defaultValue={0.5} />
         </ListItem>
       </>
     </List>

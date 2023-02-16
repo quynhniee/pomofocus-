@@ -12,6 +12,7 @@ import { Text } from "./Setting/Components";
 import ThemeSetting from "./Setting/Theme";
 import Context from "../store/Context";
 import Modal from "./Modal";
+import { useEffect } from "react";
 
 const SettingButton = () => {
   const {
@@ -25,6 +26,8 @@ const SettingButton = () => {
     updateLongBreakInterval,
     autoSwitchTasks,
     updateAutoSwitchTasks,
+    alarmSound,
+    updateAlarmSound,
   } = useContext(Context);
   const pomodoro = tabs[0],
     shortBreak = tabs[1],
@@ -37,6 +40,7 @@ const SettingButton = () => {
   const [startPomodoro, setStartPomodoro] = useState(autoStartPomodoro);
   const [breakInterval, setBreakInterval] = useState(longBreakInterval);
   const [switchTasks, setSwitchTasks] = useState(autoSwitchTasks);
+  const [alarm, setAlarm] = useState(alarmSound);
   const getPomodoroMinute = useCallback((data) => setPomodoroMinute(data), []);
   const getShortBreakMinute = useCallback(
     (data) => setShortBreakMinute(data),
@@ -62,6 +66,14 @@ const SettingButton = () => {
     () => setSwitchTasks(!switchTasks),
     [switchTasks]
   );
+  const getAlarmSound = useCallback(
+    (data) => setAlarm({ ...alarm, sound: data }),
+    [alarm]
+  );
+  const getAlarmVolume = useCallback(
+    (data) => setAlarm({ ...alarm, volume: data }),
+    [alarm]
+  );
   const openHandle = () => setOpen(true);
   const closeHandle = () => setOpen(false);
   const saveHandle = () => {
@@ -74,6 +86,7 @@ const SettingButton = () => {
     updateAutoStartPomodoro(startPomodoro);
     updateLongBreakInterval(breakInterval);
     updateAutoSwitchTasks(switchTasks);
+    updateAlarmSound(alarm);
     setOpen(false);
   };
 
@@ -109,7 +122,11 @@ const SettingButton = () => {
             toggleSwitchTasks={toggleSwitchTasks}
           />
           <Divider />
-          <SoundSetting />
+          <SoundSetting
+            alarm={alarm}
+            getAlarmVolume={getAlarmVolume}
+            getAlarmSound={getAlarmSound}
+          />
           <Divider />
           <ThemeSetting />
         </Stack>

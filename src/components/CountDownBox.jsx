@@ -101,7 +101,6 @@ const CountDownBox = ({
   useEffect(() => {
     setMinute(tabs[activeTab].minute);
     setSecond(tabs[activeTab].second);
-    // getTheme(tabs[activeTab].themeColor);
     updateCurrentThemeColor(tabs[activeTab].themeColor);
   }, [activeTab, tabs, updateCurrentThemeColor]);
 

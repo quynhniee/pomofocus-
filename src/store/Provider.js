@@ -1,6 +1,7 @@
 import { useTheme } from "@emotion/react";
 import React, { useCallback, useState } from "react";
 import TabsContext from "./Context";
+import clock from "../assets/sound/AlarmSound/clock-alarm-8761.mp3";
 
 const Provider = ({ children }) => {
   const theme = useTheme();
@@ -11,6 +12,7 @@ const Provider = ({ children }) => {
   const [autoStartPomodoro, setAutoStartPomodoro] = useState(false);
   const [longBreakInterval, setLongBreakInterval] = useState(4);
   const [autoSwitchTasks, setAutoSwitchTasks] = useState(true);
+  const [alarmSound, setAlarmSound] = useState({ sound: clock, volume: 0.5 });
   const [tabs, setTabs] = useState([
     {
       name: "Pomodoro",
@@ -40,6 +42,7 @@ const Provider = ({ children }) => {
   const updateAutoStartPomodoro = (data) => setAutoStartPomodoro(data);
   const updateLongBreakInterval = (data) => setLongBreakInterval(data);
   const updateAutoSwitchTasks = (data) => setAutoSwitchTasks(data);
+  const updateAlarmSound = (data) => setAlarmSound(data);
   const updateTabs = useCallback((data) => setTabs(data), []);
   const updatePomodoro = useCallback(
     (data) => setTabs([data, tabs[1], tabs[2]]),
@@ -72,6 +75,8 @@ const Provider = ({ children }) => {
         updateAutoSwitchTasks,
         currentThemeColor,
         updateCurrentThemeColor,
+        alarmSound,
+        updateAlarmSound,
       }}
     >
       {children}
