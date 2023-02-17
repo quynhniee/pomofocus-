@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { List, ListItem, Text, Title } from "./Components";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { Input, MenuItem, Select, Typography } from "@mui/material";
@@ -17,9 +17,6 @@ import {
 const Sound = ({ alarm, getAlarmSound, ticking, getTickingSound }) => {
   const alarmAudioRef = useRef(new Audio(alarm.sound));
   const tickingAudioRef = useRef(new Audio(ticking.sound));
-
-  // alarmAudioRef.current.loop = true;
-  // tickingAudioRef.current.loop = true;
 
   const alarmSounds = [
     { name: "Kitty", sound: Kitty },
@@ -54,12 +51,15 @@ const Sound = ({ alarm, getAlarmSound, ticking, getTickingSound }) => {
     alarmAudioRef.current.pause();
     if (sound) tickingAudioRef.current.src = sound;
     if (volume) tickingAudioRef.current.volume = volume;
-    tickingAudioRef.current.play().catch((error) => {});
-    // const timeout = setTimeout(() => {
-    //   tickingAudioRef.current.pause();
-    //   tickingAudioRef.current.currentTime = 0;
-    // }, 1000);
-    // return clearTimeout(timeout);
+    tickingAudioRef.current
+      .play()
+      .catch((error) => {})
+      .then(() => {
+        setTimeout(() => {
+          tickingAudioRef.current.pause();
+          tickingAudioRef.current.currentTime = 0;
+        }, 5000);
+      });
   };
   const changeTickingVolumeHandle = (value) => {
     getTickingSound({ ...ticking, volume: value });
