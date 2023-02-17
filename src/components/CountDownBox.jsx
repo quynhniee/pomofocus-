@@ -161,7 +161,6 @@ const CountDownBox = ({
                 setMinute(minute - 1);
                 setSecond(59);
               } else {
-                // alarm.current.play();
                 play(alarm.current, alarmSoundRepeat);
                 clearInterval(timerInterval);
                 changeTab();

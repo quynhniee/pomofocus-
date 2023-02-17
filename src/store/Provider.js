@@ -1,48 +1,28 @@
-import { useTheme } from "@emotion/react";
 import React, { useCallback, useState } from "react";
 import TabsContext from "./Context";
-import dog from "../assets/sound/AlarmSound/dog-sound.wav";
-import fast from "../assets/sound/TickingSound/fast-ticking.mp3";
+
+const setting = JSON.parse(localStorage.getItem("setting"));
 
 const Provider = ({ children }) => {
-  const theme = useTheme();
-  const [currentThemeColor, setCurrentThemeColor] = useState(
-    theme.palette.red.main
+  const [autoStartBreak, setAutoStartBreak] = useState(setting.autoStartBreak);
+  const [autoStartPomodoro, setAutoStartPomodoro] = useState(
+    setting.autoStartPomodoro
   );
-  const [autoStartBreak, setAutoStartBreak] = useState(false);
-  const [autoStartPomodoro, setAutoStartPomodoro] = useState(false);
-  const [longBreakInterval, setLongBreakInterval] = useState(4);
-  const [autoSwitchTasks, setAutoSwitchTasks] = useState(true);
-  const [alarmSound, setAlarmSound] = useState({ sound: dog, volume: 0.5 });
-  const [alarmSoundRepeat, setAlarmSoundRepeat] = useState(2);
-  const [tickingSound, setTickingSound] = useState({
-    sound: fast,
-    volume: 0.5,
-  });
-
-  const [tabs, setTabs] = useState([
-    {
-      name: "Pomodoro",
-      minute: 0,
-      second: 5,
-      themeColor: theme.palette.red.main,
-      isActive: true,
-    },
-    {
-      name: "Short Break",
-      minute: 5,
-      second: 0,
-      themeColor: theme.palette.cyan.main,
-      isActive: false,
-    },
-    {
-      name: "Long Break",
-      minute: 10,
-      second: 0,
-      themeColor: theme.palette.blue.main,
-      isActive: false,
-    },
-  ]);
+  const [longBreakInterval, setLongBreakInterval] = useState(
+    setting.longBreakInterval
+  );
+  const [autoSwitchTasks, setAutoSwitchTasks] = useState(
+    setting.autoSwitchTasks
+  );
+  const [alarmSound, setAlarmSound] = useState(setting.alarmSound);
+  const [alarmSoundRepeat, setAlarmSoundRepeat] = useState(
+    setting.alarmSoundRepeat
+  );
+  const [tickingSound, setTickingSound] = useState(setting.tickingSound);
+  const [tabs, setTabs] = useState(setting.tabs);
+  const [currentThemeColor, setCurrentThemeColor] = useState(
+    tabs[0].themeColor
+  );
 
   const updateCurrentThemeColor = (data) => setCurrentThemeColor(data);
   const updateAutoStartBreak = (data) => setAutoStartBreak(data);
@@ -65,7 +45,7 @@ const Provider = ({ children }) => {
     (data) => setTabs([tabs[0], tabs[1], data]),
     [tabs]
   );
-  useCallback(() => console.log(tabs), [tabs]);
+
   return (
     <TabsContext.Provider
       value={{

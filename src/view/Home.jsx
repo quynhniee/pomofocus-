@@ -6,32 +6,34 @@ import Result from "../components/Result";
 import TasksList from "../components/TasksList";
 
 function Home() {
-  const [tasks, setTasks] = useState([
-    {
-      id: "12drrdasf",
-      content: "task 1",
-      isActive: true,
-      isCompleted: false,
-      act: 0,
-      EP: 1,
-    },
-    {
-      id: "adsfwiqwe8",
-      content: "task 2",
-      isActive: false,
-      isCompleted: false,
-      act: 1,
-      EP: 3,
-    },
-    {
-      id: "ad123qwe8",
-      content: "task 3",
-      isActive: false,
-      isCompleted: false,
-      act: 0,
-      EP: 2,
-    },
-  ]);
+  // const [tasks, setTasks] = useState([
+  //   {
+  //     id: "12drrdasf",
+  //     content: "task 1",
+  //     isActive: true,
+  //     isCompleted: false,
+  //     act: 0,
+  //     EP: 1,
+  //   },
+  //   {
+  //     id: "adsfwiqwe8",
+  //     content: "task 2",
+  //     isActive: false,
+  //     isCompleted: false,
+  //     act: 1,
+  //     EP: 3,
+  //   },
+  //   {
+  //     id: "ad123qwe8",
+  //     content: "task 3",
+  //     isActive: false,
+  //     isCompleted: false,
+  //     act: 0,
+  //     EP: 2,
+  //   },
+  // ]);
+
+  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")));
   const [activeTab, setActiveTab] = useState(0);
   const defaultActiveItem = useCallback(() => {
     if (tasks.length === 0)
@@ -58,6 +60,10 @@ function Home() {
     setActNumber(act);
     setPomosNumber(pomos);
   }, [activeTab, defaultActiveItem, tasks]);
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <>

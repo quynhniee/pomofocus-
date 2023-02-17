@@ -95,6 +95,24 @@ const SettingButton = () => {
     setOpen(false);
   };
 
+  const updateSettingStorage = () => {
+    const setting = {
+      tabs: tabs,
+      autoStartBreak: autoStartBreak,
+      autoStartPomodoro: autoStartPomodoro,
+      longBreakInterval: longBreakInterval,
+      autoSwitchTasks: autoSwitchTasks,
+      alarmSound: alarmSound,
+      alarmSoundRepeat: alarmSoundRepeat,
+      tickingSound: tickingSound,
+    };
+    localStorage.setItem("setting", JSON.stringify(setting));
+  };
+
+  useEffect(() => {
+    updateSettingStorage();
+  }, [saveHandle]);
+
   useEffect(() => {
     setStartBreak(autoStartBreak);
     setStartPomodoro(autoStartPomodoro);
