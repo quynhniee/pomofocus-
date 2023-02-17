@@ -24,6 +24,8 @@ const Context = createContext({
   updateCurrentThemeColor: () => {},
   alarmSound: { sound: null, volume: null },
   updateAlarmSound: () => {},
+  tickingSound: { sound: null, volume: null },
+  updateTickingSound: () => {},
 });
 
 export default Context;

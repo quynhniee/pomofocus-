@@ -28,6 +28,8 @@ const SettingButton = () => {
     updateAutoSwitchTasks,
     alarmSound,
     updateAlarmSound,
+    tickingSound,
+    updateTickingSound,
   } = useContext(Context);
   const pomodoro = tabs[0],
     shortBreak = tabs[1],
@@ -41,6 +43,7 @@ const SettingButton = () => {
   const [breakInterval, setBreakInterval] = useState(longBreakInterval);
   const [switchTasks, setSwitchTasks] = useState(autoSwitchTasks);
   const [alarm, setAlarm] = useState(alarmSound);
+  const [ticking, setTicking] = useState(tickingSound);
   const getPomodoroMinute = useCallback((data) => setPomodoroMinute(data), []);
   const getShortBreakMinute = useCallback(
     (data) => setShortBreakMinute(data),
@@ -66,16 +69,12 @@ const SettingButton = () => {
     () => setSwitchTasks(!switchTasks),
     [switchTasks]
   );
-  const getAlarmSound = useCallback(
-    (data) => setAlarm({ ...alarm, sound: data }),
-    [alarm]
-  );
-  const getAlarmVolume = useCallback(
-    (data) => setAlarm({ ...alarm, volume: data }),
-    [alarm]
-  );
+  const getAlarmSound = useCallback((data) => setAlarm(data), []);
+  const getTickingSound = useCallback((data) => setTicking(data), []);
+
   const openHandle = () => setOpen(true);
   const closeHandle = () => setOpen(false);
+
   const saveHandle = () => {
     updateTabs([
       { ...pomodoro, minute: pomodoroMinute },
@@ -87,8 +86,22 @@ const SettingButton = () => {
     updateLongBreakInterval(breakInterval);
     updateAutoSwitchTasks(switchTasks);
     updateAlarmSound(alarm);
+    updateTickingSound(ticking);
     setOpen(false);
   };
+
+  useEffect(() => {
+    setAlarm(alarmSound);
+    setStartBreak(autoStartBreak);
+    setStartPomodoro(autoStartPomodoro);
+    setPomodoroMinute(pomodoro.minute);
+    setLongBreakMinute(longBreak.minute);
+    setShortBreakMinute(shortBreak.minute);
+    setSwitchTasks(autoSwitchTasks);
+    setBreakInterval(longBreakInterval);
+    setTicking(tickingSound);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   return (
     <div>
@@ -124,8 +137,9 @@ const SettingButton = () => {
           <Divider />
           <SoundSetting
             alarm={alarm}
-            getAlarmVolume={getAlarmVolume}
             getAlarmSound={getAlarmSound}
+            ticking={ticking}
+            getTickingSound={getTickingSound}
           />
           <Divider />
           <ThemeSetting />

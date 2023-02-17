@@ -27,6 +27,7 @@ const CustomSlider = ({ defaultValue, changeVolume }) => {
   const [value, setValue] = useState(defaultValue * 100);
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
+    changeVolume(newValue / 100);
   };
   return (
     <Stack
@@ -37,13 +38,7 @@ const CustomSlider = ({ defaultValue, changeVolume }) => {
       alignItems="center"
     >
       <Text color={grey[400]}>{value}</Text>
-      <GreySlider
-        value={value}
-        onChange={handleSliderChange}
-        onMouseUp={() => {
-          changeVolume(value / 100);
-        }}
-      />
+      <GreySlider value={value} onChange={handleSliderChange} />
     </Stack>
   );
 };

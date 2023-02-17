@@ -1,16 +1,26 @@
-import React, { useEffect, useContext, useCallback } from "react";
+import React, { useRef } from "react";
 import { List, ListItem, Text, Title } from "./Components";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { Input, MenuItem, Select, Typography } from "@mui/material";
 import CustomSlider from "../CustomSlider";
-import Kitty from "D:/Workspace/pomofocus-/src/assets/sound/AlarmSound/kitty-sound.wav";
-import Dog from "D:/Workspace/pomofocus-/src/assets/sound/AlarmSound/dog-sound.wav";
-import Digital from "D:/Workspace/pomofocus-/src/assets/sound/AlarmSound/digital-clock-sound.wav";
-import Alarm from "D:/Workspace/pomofocus-/src/assets/sound/AlarmSound/clock-alarm-8761.mp3";
-import Context from "../../store/Context";
+import {
+  Kitty,
+  Dog,
+  Alarm,
+  Digital,
+  FastTicking,
+  SlowTicking,
+  CannonInD,
+  SnowFlower,
+} from "../../assets/sound/SoundData";
 
-const Sound = ({ alarm, getAlarmSound, getAlarmVolume }) => {
-  const { alarmSound } = useContext(Context);
+const Sound = ({ alarm, getAlarmSound, ticking, getTickingSound }) => {
+  const alarmAudioRef = useRef(new Audio(alarm.sound));
+  const tickingAudioRef = useRef(new Audio(ticking.sound));
+
+  // alarmAudioRef.current.loop = true;
+  // tickingAudioRef.current.loop = true;
+
   const alarmSounds = [
     { name: "Kitty", sound: Kitty },
     { name: "Dog", sound: Dog },
@@ -18,27 +28,49 @@ const Sound = ({ alarm, getAlarmSound, getAlarmVolume }) => {
     { name: "Alarm", sound: Alarm },
   ];
   const tickingSounds = [
-    "None",
-    "Ticking Fast",
-    "Ticking Slow",
-    "White Noise",
-    "Brown Noise",
+    { name: "None", sound: "none" },
+    { name: "Ticking Fast", sound: FastTicking },
+    { name: "Ticking Slow", sound: SlowTicking },
+    { name: "Cannon In D", sound: CannonInD },
+    { name: "Snow Flower", sound: SnowFlower },
   ];
 
-  const playSound = (sound = alarm.sound, volume = alarm.volume) => {
-    let audio = new Audio(sound);
-    audio.volume = volume;
-    audio.play();
+  const playAlarmSound = (sound, volume) => {
+    tickingAudioRef.current.pause();
+    if (sound) alarmAudioRef.current.src = sound;
+    if (volume) alarmAudioRef.current.volume = volume;
+    alarmAudioRef.current.play();
   };
-  // chưa fix lỗi update lại alarm mỗi lần mở setting
-  const changeVolumeHandle = (value) => {
-    getAlarmVolume(value);
-    playSound(alarm.sound, value);
+  const changeAlarmVolumeHandle = (value) => {
+    getAlarmSound({ ...alarm, volume: value });
+    playAlarmSound(null, value);
   };
-  const changeSoundHandle = (e) => {
-    getAlarmSound(e.target.value);
-    playSound(e.target.value, alarm.volume);
+  const changeAlarmSoundHandle = (e) => {
+    getAlarmSound({ ...alarm, sound: e.target.value });
+    playAlarmSound(e.target.value);
   };
+
+  const playTickingSound = (sound, volume) => {
+    alarmAudioRef.current.pause();
+    if (sound) tickingAudioRef.current.src = sound;
+    if (volume) tickingAudioRef.current.volume = volume;
+    tickingAudioRef.current.play().catch((error) => {});
+    // const timeout = setTimeout(() => {
+    //   tickingAudioRef.current.pause();
+    //   tickingAudioRef.current.currentTime = 0;
+    // }, 1000);
+    // return clearTimeout(timeout);
+  };
+  const changeTickingVolumeHandle = (value) => {
+    getTickingSound({ ...ticking, volume: value });
+    playTickingSound(null, value);
+  };
+  const changeTickingSoundHandle = (e) => {
+    const sound = e.target.value;
+    getTickingSound({ ...ticking, sound: sound });
+    playTickingSound(sound);
+  };
+
   return (
     <List>
       <Title>
@@ -49,9 +81,9 @@ const Sound = ({ alarm, getAlarmSound, getAlarmVolume }) => {
         <ListItem>
           <Text>Alarm Sound</Text>
           <Select
-            defaultValue={alarmSound.sound}
+            defaultValue={alarm.sound}
             sx={{ border: "none", width: 130 }}
-            onChange={changeSoundHandle}
+            onChange={changeAlarmSoundHandle}
           >
             {alarmSounds.map((sound) => (
               <MenuItem key={sound.name} value={sound.sound}>
@@ -62,8 +94,8 @@ const Sound = ({ alarm, getAlarmSound, getAlarmVolume }) => {
         </ListItem>
         <ListItem>
           <CustomSlider
-            defaultValue={alarmSound.volume}
-            changeVolume={changeVolumeHandle}
+            defaultValue={alarm.volume}
+            changeVolume={changeAlarmVolumeHandle}
           />
         </ListItem>
         <ListItem>
@@ -86,18 +118,22 @@ const Sound = ({ alarm, getAlarmSound, getAlarmVolume }) => {
         <ListItem>
           <Text>Ticking Sound</Text>
           <Select
-            defaultValue={tickingSounds[0]}
+            defaultValue={ticking.sound}
             sx={{ border: "none", width: 130 }}
+            onChange={changeTickingSoundHandle}
           >
             {tickingSounds.map((sound) => (
-              <MenuItem key={sound} value={sound}>
-                {sound}
+              <MenuItem key={sound.name} value={sound.sound}>
+                {sound.name}
               </MenuItem>
             ))}
           </Select>
         </ListItem>
         <ListItem>
-          <CustomSlider defaultValue={0.5} />
+          <CustomSlider
+            defaultValue={ticking.volume}
+            changeVolume={changeTickingVolumeHandle}
+          />
         </ListItem>
       </>
     </List>

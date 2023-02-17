@@ -1,5 +1,11 @@
 import { Stack } from "@mui/material";
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+} from "react";
 import Context from "../store/Context";
 import CountDown from "./CountDown/CountDown";
 import SkipButton from "./CountDown/SkipButton";
@@ -7,8 +13,6 @@ import Tab from "./CountDown/Tab";
 import TimerButton from "./CountDown/TimerButton";
 
 const CountDownBox = ({
-  // themeColor,
-  // getTheme,
   counter,
   increaseCounter,
   activeTab,
@@ -26,12 +30,21 @@ const CountDownBox = ({
     autoSwitchTasks,
     currentThemeColor,
     updateCurrentThemeColor,
+    tickingSound,
+    alarmSound,
   } = useContext(Context);
   const [active, setActive] = useState(
     activeTab === 0 ? autoStartPomodoro : autoStartBreak
   );
   const [minute, setMinute] = useState(tabs[activeTab].minute);
   const [second, setSecond] = useState(tabs[activeTab].second);
+
+  let alarm = useRef(new Audio(alarmSound.sound));
+  alarm.current.volume = alarmSound.volume;
+  let ticking = useRef(new Audio(tickingSound.sound));
+  ticking.current.loop = true;
+  ticking.current.volume = tickingSound.volume;
+
   const getActive = useCallback((data) => {
     setActive(data);
   }, []);
@@ -65,6 +78,7 @@ const CountDownBox = ({
   }
 
   function changeTab() {
+    ticking.current.currentTime = 0;
     if (tabs[activeTab] === tabs[0]) {
       getActive(autoStartBreak);
       increaseCounter();
@@ -105,6 +119,20 @@ const CountDownBox = ({
   }, [activeTab, tabs, updateCurrentThemeColor]);
 
   useEffect(() => {
+    ticking.current.src = tickingSound.sound;
+    ticking.current.volume = tickingSound.volume;
+    alarm.current.src = alarmSound.sound;
+    alarm.current.volume = alarmSound.volume;
+  }, [tickingSound, alarmSound]);
+  useEffect(() => {
+    if (active === true && activeTab === 0) {
+      ticking.current.play().catch((error) => console.log(error));
+    } else {
+      ticking.current.pause();
+    }
+    console.log(active);
+  }, [active, activeTab]);
+  useEffect(() => {
     const timerInterval =
       active === true
         ? setInterval(() => {
@@ -114,6 +142,7 @@ const CountDownBox = ({
                 setMinute(minute - 1);
                 setSecond(59);
               } else {
+                alarm.current.play();
                 clearInterval(timerInterval);
                 changeTab();
               }
