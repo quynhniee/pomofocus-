@@ -26,6 +26,8 @@ const Context = createContext({
   updateAlarmSound: () => {},
   tickingSound: { sound: null, volume: null },
   updateTickingSound: () => {},
+  alarmSoundRepeat: null,
+  updateAlarmSoundRepeat: () => {},
 });
 
 export default Context;

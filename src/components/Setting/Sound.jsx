@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { List, ListItem, Text, Title } from "./Components";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { Input, MenuItem, Select, Typography } from "@mui/material";
@@ -14,7 +14,14 @@ import {
   SnowFlower,
 } from "../../assets/sound/SoundData";
 
-const Sound = ({ alarm, getAlarmSound, ticking, getTickingSound }) => {
+const Sound = ({
+  alarm,
+  getAlarmSound,
+  ticking,
+  getTickingSound,
+  alarmRepeat,
+  getAlarmSoundRepeat,
+}) => {
   const alarmAudioRef = useRef(new Audio(alarm.sound));
   const tickingAudioRef = useRef(new Audio(ticking.sound));
 
@@ -108,9 +115,12 @@ const Sound = ({ alarm, getAlarmSound, ticking, getTickingSound }) => {
               min: 0,
               type: "number",
             }}
-            defaultValue={1}
+            defaultValue={alarmRepeat}
             disableUnderline
             sx={{ width: 55 }}
+            onChange={(e) => {
+              getAlarmSoundRepeat(+e.target.value);
+            }}
           />
         </ListItem>
       </>

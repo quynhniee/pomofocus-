@@ -32,6 +32,7 @@ const CountDownBox = ({
     updateCurrentThemeColor,
     tickingSound,
     alarmSound,
+    alarmSoundRepeat,
   } = useContext(Context);
   const [active, setActive] = useState(
     activeTab === 0 ? autoStartPomodoro : autoStartBreak
@@ -112,6 +113,7 @@ const CountDownBox = ({
       );
     }
   }
+
   useEffect(() => {
     setMinute(tabs[activeTab].minute);
     setSecond(tabs[activeTab].second);
@@ -124,14 +126,31 @@ const CountDownBox = ({
     alarm.current.src = alarmSound.sound;
     alarm.current.volume = alarmSound.volume;
   }, [tickingSound, alarmSound]);
+
   useEffect(() => {
     if (active === true && activeTab === 0) {
       ticking.current.play().catch((error) => console.log(error));
     } else {
       ticking.current.pause();
     }
-    console.log(active);
   }, [active, activeTab]);
+
+  function play(audio, times) {
+    if (times <= 0) {
+      return;
+    }
+    var played = 0;
+    audio.addEventListener("ended", function () {
+      played++;
+      if (played < times) {
+        audio.play();
+      } else {
+        return;
+      }
+    });
+    audio.play();
+  }
+
   useEffect(() => {
     const timerInterval =
       active === true
@@ -142,7 +161,8 @@ const CountDownBox = ({
                 setMinute(minute - 1);
                 setSecond(59);
               } else {
-                alarm.current.play();
+                // alarm.current.play();
+                play(alarm.current, alarmSoundRepeat);
                 clearInterval(timerInterval);
                 changeTab();
               }

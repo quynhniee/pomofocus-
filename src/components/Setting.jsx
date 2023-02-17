@@ -30,6 +30,8 @@ const SettingButton = () => {
     updateAlarmSound,
     tickingSound,
     updateTickingSound,
+    alarmSoundRepeat,
+    updateAlarmSoundRepeat,
   } = useContext(Context);
   const pomodoro = tabs[0],
     shortBreak = tabs[1],
@@ -43,6 +45,7 @@ const SettingButton = () => {
   const [breakInterval, setBreakInterval] = useState(longBreakInterval);
   const [switchTasks, setSwitchTasks] = useState(autoSwitchTasks);
   const [alarm, setAlarm] = useState(alarmSound);
+  const [alarmRepeat, setAlarmRepeat] = useState(alarmSoundRepeat);
   const [ticking, setTicking] = useState(tickingSound);
   const getPomodoroMinute = useCallback((data) => setPomodoroMinute(data), []);
   const getShortBreakMinute = useCallback(
@@ -70,6 +73,7 @@ const SettingButton = () => {
     [switchTasks]
   );
   const getAlarmSound = useCallback((data) => setAlarm(data), []);
+  const getAlarmSoundRepeat = useCallback((data) => setAlarmRepeat(data), []);
   const getTickingSound = useCallback((data) => setTicking(data), []);
 
   const openHandle = () => setOpen(true);
@@ -87,11 +91,11 @@ const SettingButton = () => {
     updateAutoSwitchTasks(switchTasks);
     updateAlarmSound(alarm);
     updateTickingSound(ticking);
+    updateAlarmSoundRepeat(alarmRepeat);
     setOpen(false);
   };
 
   useEffect(() => {
-    setAlarm(alarmSound);
     setStartBreak(autoStartBreak);
     setStartPomodoro(autoStartPomodoro);
     setPomodoroMinute(pomodoro.minute);
@@ -99,6 +103,8 @@ const SettingButton = () => {
     setShortBreakMinute(shortBreak.minute);
     setSwitchTasks(autoSwitchTasks);
     setBreakInterval(longBreakInterval);
+    setAlarm(alarmSound);
+    setAlarmRepeat(alarmSoundRepeat);
     setTicking(tickingSound);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
@@ -140,6 +146,8 @@ const SettingButton = () => {
             getAlarmSound={getAlarmSound}
             ticking={ticking}
             getTickingSound={getTickingSound}
+            alarmRepeat={alarmRepeat}
+            getAlarmSoundRepeat={getAlarmSoundRepeat}
           />
           <Divider />
           <ThemeSetting />

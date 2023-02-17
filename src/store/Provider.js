@@ -1,7 +1,7 @@
 import { useTheme } from "@emotion/react";
 import React, { useCallback, useState } from "react";
 import TabsContext from "./Context";
-import alarm from "../assets/sound/AlarmSound/clock-alarm-8761.mp3";
+import dog from "../assets/sound/AlarmSound/dog-sound.wav";
 import fast from "../assets/sound/TickingSound/fast-ticking.mp3";
 
 const Provider = ({ children }) => {
@@ -13,7 +13,8 @@ const Provider = ({ children }) => {
   const [autoStartPomodoro, setAutoStartPomodoro] = useState(false);
   const [longBreakInterval, setLongBreakInterval] = useState(4);
   const [autoSwitchTasks, setAutoSwitchTasks] = useState(true);
-  const [alarmSound, setAlarmSound] = useState({ sound: alarm, volume: 0.5 });
+  const [alarmSound, setAlarmSound] = useState({ sound: dog, volume: 0.5 });
+  const [alarmSoundRepeat, setAlarmSoundRepeat] = useState(2);
   const [tickingSound, setTickingSound] = useState({
     sound: fast,
     volume: 0.5,
@@ -23,7 +24,7 @@ const Provider = ({ children }) => {
     {
       name: "Pomodoro",
       minute: 0,
-      second: 10,
+      second: 5,
       themeColor: theme.palette.red.main,
       isActive: true,
     },
@@ -49,6 +50,7 @@ const Provider = ({ children }) => {
   const updateLongBreakInterval = (data) => setLongBreakInterval(data);
   const updateAutoSwitchTasks = (data) => setAutoSwitchTasks(data);
   const updateAlarmSound = (data) => setAlarmSound(data);
+  const updateAlarmSoundRepeat = (data) => setAlarmSoundRepeat(data);
   const updateTickingSound = (data) => setTickingSound(data);
   const updateTabs = useCallback((data) => setTabs(data), []);
   const updatePomodoro = useCallback(
@@ -86,6 +88,8 @@ const Provider = ({ children }) => {
         updateAlarmSound,
         tickingSound,
         updateTickingSound,
+        alarmSoundRepeat,
+        updateAlarmSoundRepeat,
       }}
     >
       {children}
