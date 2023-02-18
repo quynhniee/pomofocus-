@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/pomofocus-/static/css/main.a0390cf2.css",
-    "main.js": "/pomofocus-/static/js/main.2e1e3e7d.js",
+    "main.js": "/pomofocus-/static/js/main.f3f3d015.js",
     "static/media/CanonInD.mp3": "/pomofocus-/static/media/CanonInD.4bc33dacbdfdbcc9cf55.mp3",
     "static/media/MyNeighborTotoro.mp3": "/pomofocus-/static/media/MyNeighborTotoro.8653efda92ae0800a35e.mp3",
     "static/media/PonyoOnTheCliffByTheSea.mp3": "/pomofocus-/static/media/PonyoOnTheCliffByTheSea.a5ad321e2098fda44021.mp3",
@@ -14,10 +14,10 @@
     "static/media/fast-ticking.mp3": "/pomofocus-/static/media/fast-ticking.e26e1209fbff863bffc1.mp3",
     "index.html": "/pomofocus-/index.html",
     "main.a0390cf2.css.map": "/pomofocus-/static/css/main.a0390cf2.css.map",
-    "main.2e1e3e7d.js.map": "/pomofocus-/static/js/main.2e1e3e7d.js.map"
+    "main.f3f3d015.js.map": "/pomofocus-/static/js/main.f3f3d015.js.map"
   },
   "entrypoints": [
     "static/css/main.a0390cf2.css",
-    "static/js/main.2e1e3e7d.js"
+    "static/js/main.f3f3d015.js"
   ]
 }
