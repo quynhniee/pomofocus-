@@ -36,7 +36,7 @@ function Home() {
   const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")));
   const [activeTab, setActiveTab] = useState(0);
   const defaultActiveItem = useCallback(() => {
-    if (tasks.length === 0)
+    if (tasks === null || tasks.length === 0)
       return {
         content: activeTab === 0 ? "Time to focus!" : "Time for a break!",
       };
