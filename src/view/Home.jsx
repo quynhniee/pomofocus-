@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Result from "../components/Result";
 import TasksList from "../components/TasksList";
 
+const tasksData = JSON.parse(localStorage.getItem("tasks"));
 function Home() {
   // const [tasks, setTasks] = useState([
   //   {
@@ -33,14 +34,13 @@ function Home() {
   //   },
   // ]);
 
-  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")));
+  const [tasks, setTasks] = useState(tasksData === null ? [] : tasksData);
   const [activeTab, setActiveTab] = useState(0);
   const defaultActiveItem = useCallback(() => {
-    if (tasks === null || tasks.length === 0)
-      return {
-        content: activeTab === 0 ? "Time to focus!" : "Time for a break!",
-      };
     for (const task of tasks) if (task.isActive === true) return task;
+    return {
+      content: activeTab === 0 ? "Time to focus!" : "Time for a break!",
+    };
   }, [activeTab, tasks]);
   const [activeItem, setActiveItem] = useState(defaultActiveItem);
   const [counter, setCounter] = useState(0);

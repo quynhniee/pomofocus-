@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import TabsContext from "./Context";
+import { Alarm, CannonInD } from "../assets/sound/SoundData";
 
 const settingData = JSON.parse(localStorage.getItem("setting"));
 const setting =
@@ -34,14 +35,13 @@ const setting =
         longBreakInterval: 4,
         autoSwitchTasks: false,
         alarmSound: {
-          sound: "/static/media/dog-sound.68a11d6805471469a5ea.wav",
+          sound: Alarm,
           volume: 0.5,
         },
         alarmSoundRepeat: 1,
         tickingSound: {
-          sound:
-            "/static/media/PonyoOnTheCliffByTheSea.a5ad321e2098fda44021.mp3",
-          volume: 0.62,
+          sound: "none",
+          volume: 0.5,
         },
       };
 

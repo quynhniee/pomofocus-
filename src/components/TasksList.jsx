@@ -21,26 +21,37 @@ const TasksList = ({ tasks, getTasks }) => {
       </Stack>
       <Divider sx={{ bgcolor: "#ffffff80", height: "2px", my: "0.8rem" }} />
       <List>
-        {tasks.map((task, index) => (
-          <TaskItem tasks={tasks} getTasks={getTasks} task={task} key={index}>
-            <TaskCheckButton tasks={tasks} getTasks={getTasks} task={task} />
-            <Stack
-              marginLeft="auto"
-              marginRight={2}
-              direction="row"
-              alignItems="flex-end"
-              spacing={0.2}
-            >
-              <Typography fontWeight="bold" color="#BBBBBB" fontSize={17}>
-                {task.act}
-              </Typography>
-              <Typography fontWeight="bold" color="#BBBBBB">
-                {" "}
-                / {task.EP}
-              </Typography>
-            </Stack>
-          </TaskItem>
-        ))}
+        {tasks !== null
+          ? tasks.map((task, index) => (
+              <TaskItem
+                tasks={tasks}
+                getTasks={getTasks}
+                task={task}
+                key={index}
+              >
+                <TaskCheckButton
+                  tasks={tasks}
+                  getTasks={getTasks}
+                  task={task}
+                />
+                <Stack
+                  marginLeft="auto"
+                  marginRight={2}
+                  direction="row"
+                  alignItems="flex-end"
+                  spacing={0.2}
+                >
+                  <Typography fontWeight="bold" color="#BBBBBB" fontSize={17}>
+                    {task.act}
+                  </Typography>
+                  <Typography fontWeight="bold" color="#BBBBBB">
+                    {" "}
+                    / {task.EP}
+                  </Typography>
+                </Stack>
+              </TaskItem>
+            ))
+          : null}
       </List>
       {expand === false ? (
         <AddTaskButton getExpand={getExpand} />
