@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
 
-const Auth = () => {
+const Signup = () => {
   return (
     <>
       <Stack alignItems="center">
@@ -18,7 +18,7 @@ const Auth = () => {
           mt={2}
           mb={4}
         >
-          Login
+          Create Account
         </Typography>
         <Stack
           px={2}
@@ -35,6 +35,16 @@ const Auth = () => {
               fontWeight="bold"
               textTransform="uppercase"
             >
+              Full Name
+            </Typography>
+            <Input disableUnderline type="text" placeholder="" />
+          </FormControl>
+          <FormControl>
+            <Typography
+              color={grey[400]}
+              fontWeight="bold"
+              textTransform="uppercase"
+            >
               Email
             </Typography>
             <Input
@@ -43,6 +53,7 @@ const Auth = () => {
               placeholder="example@mail.com"
             />
           </FormControl>
+
           <FormControl>
             <Typography
               color={grey[400]}
@@ -53,16 +64,27 @@ const Auth = () => {
             </Typography>
             <Input disableUnderline type="password" />
           </FormControl>
+          <FormControl>
+            <Typography
+              color={grey[400]}
+              fontWeight="bold"
+              textTransform="uppercase"
+            >
+              Confirm Password
+            </Typography>
+            <Input disableUnderline type="password" />
+          </FormControl>
+
           <Button color="dark" variant="contained" sx={{ py: 1.5 }}>
-            Log in with email
+            Sign up with email
           </Button>
         </Stack>
         <Typography color="#fff" mt={3} mb={1} fontWeight="light">
-          Do not have an account?
+          Already have an account?
         </Typography>
-        <Link to="/signup">
+        <Link to="/login">
           <Typography color="#fff" fontWeight="bold">
-            Create account
+            Log in
           </Typography>
         </Link>
       </Stack>
@@ -70,4 +92,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Signup;

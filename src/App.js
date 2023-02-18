@@ -1,9 +1,10 @@
 import { Container, Stack } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Auth from "./view/Auth";
 import Home from "./view/Home";
 import Context from "./store/Context";
+import Login from "./view/Login";
+import Signup from "./view/Signup";
 
 const App = () => {
   const { currentThemeColor } = useContext(Context);
@@ -19,15 +20,14 @@ const App = () => {
           minHeight: "100vh",
           transition: "0.7s all ease",
         }}
-        // alignItems="center"
         justifyContent="center"
       >
         <Container maxWidth="sm">
           <BrowserRouter>
             <Routes>
               <Route index path="/app" element={<Home />}></Route>
-              <Route index path="/login" element={<Auth />}></Route>
-              <Route index path="/signup"></Route>
+              <Route index path="/login" element={<Login />}></Route>
+              <Route index path="/signup" element={<Signup />}></Route>
               <Route path="*" element={<Home />}></Route>
             </Routes>
           </BrowserRouter>
