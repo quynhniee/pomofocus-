@@ -1,7 +1,49 @@
 import React, { useCallback, useState } from "react";
 import TabsContext from "./Context";
 
-const setting = JSON.parse(localStorage.getItem("setting"));
+const settingData = JSON.parse(localStorage.getItem("setting"));
+const setting =
+  settingData !== null
+    ? settingData
+    : {
+        tabs: [
+          {
+            name: "Pomodoro",
+            minute: 25,
+            second: 0,
+            themeColor: "#ba4949",
+            isActive: true,
+          },
+          {
+            name: "Short Break",
+            minute: 5,
+            second: 0,
+            themeColor: "#38858a",
+            isActive: false,
+          },
+          {
+            name: "Long Break",
+            minute: 10,
+            second: 0,
+            themeColor: "#397097",
+            isActive: false,
+          },
+        ],
+        autoStartBreak: false,
+        autoStartPomodoro: false,
+        longBreakInterval: 4,
+        autoSwitchTasks: false,
+        alarmSound: {
+          sound: "/static/media/dog-sound.68a11d6805471469a5ea.wav",
+          volume: 0.5,
+        },
+        alarmSoundRepeat: 1,
+        tickingSound: {
+          sound:
+            "/static/media/PonyoOnTheCliffByTheSea.a5ad321e2098fda44021.mp3",
+          volume: 0.62,
+        },
+      };
 
 const Provider = ({ children }) => {
   const [autoStartBreak, setAutoStartBreak] = useState(setting.autoStartBreak);
