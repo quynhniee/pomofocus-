@@ -111,6 +111,7 @@ const SettingButton = () => {
 
   useEffect(() => {
     updateSettingStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saveHandle]);
 
   useEffect(() => {

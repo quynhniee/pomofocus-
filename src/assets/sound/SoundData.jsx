@@ -6,6 +6,8 @@ import FastTicking from "./TickingSound/fast-ticking.mp3";
 import SlowTicking from "./TickingSound/slow-ticking.mp3";
 import CannonInD from "./TickingSound/CanonInD.mp3";
 import SnowFlower from "./TickingSound/SnowFlower.mp3";
+import Totoro from "./TickingSound/MyNeighborTotoro.mp3";
+import Ponyo from "./TickingSound/PonyoOnTheCliffByTheSea.mp3";
 
 export {
   Kitty,
@@ -16,4 +18,6 @@ export {
   SlowTicking,
   CannonInD,
   SnowFlower,
+  Totoro,
+  Ponyo,
 };

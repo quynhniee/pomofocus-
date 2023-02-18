@@ -12,6 +12,8 @@ import {
   SlowTicking,
   CannonInD,
   SnowFlower,
+  Totoro,
+  Ponyo,
 } from "../../assets/sound/SoundData";
 
 const Sound = ({
@@ -37,6 +39,11 @@ const Sound = ({
     { name: "Ticking Slow", sound: SlowTicking },
     { name: "Cannon In D", sound: CannonInD },
     { name: "Snow Flower", sound: SnowFlower },
+    {
+      name: "My Neighbor Totoro",
+      sound: Totoro,
+    },
+    { name: "Ponyo On The Cliff By The Sea", sound: Ponyo },
   ];
 
   const playAlarmSound = (sound, volume) => {
