@@ -5,6 +5,7 @@ import Home from "./view/Home";
 import Context from "./store/Context";
 import Login from "./view/Login";
 import Signup from "./view/Signup";
+import path from "./path";
 
 const App = () => {
   const { currentThemeColor } = useContext(Context);
@@ -25,10 +26,10 @@ const App = () => {
         <Container maxWidth="sm">
           <BrowserRouter>
             <Routes>
-              <Route index path="/app" element={<Home />}></Route>
-              <Route index path="/login" element={<Login />}></Route>
-              <Route index path="/signup" element={<Signup />}></Route>
-              <Route path="*" element={<Home />}></Route>
+              <Route index path={path.APP} element={<Home />}></Route>
+              <Route path={path.LOGIN} element={<Login />}></Route>
+              <Route path={path.SIGNUP} element={<Signup />}></Route>
+              <Route path={path.ROOT} element={<Home />}></Route>
             </Routes>
           </BrowserRouter>
         </Container>

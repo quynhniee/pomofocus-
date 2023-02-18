@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import TabsContext from "./Context";
-import { Alarm, CannonInD } from "../assets/sound/SoundData";
+import { Alarm } from "../assets/sound/SoundData";
 
 const settingData = JSON.parse(localStorage.getItem("setting"));
 const setting =

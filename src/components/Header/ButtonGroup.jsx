@@ -6,6 +6,7 @@ import LightButton from "../LightButton";
 import LightTypography from "../LightTypography";
 import SettingButton from "../Setting";
 import { Link } from "react-router-dom";
+import path from "../../path";
 
 const ButtonGroup = () => {
   return (
@@ -16,7 +17,7 @@ const ButtonGroup = () => {
       </LightButton> */}
       <SettingButton />
 
-      <Link to="/login">
+      <Link to={path.LOGIN}>
         <LightButton>
           <AccountCircleIcon fontSize="small" />
           <LightTypography>Login</LightTypography>

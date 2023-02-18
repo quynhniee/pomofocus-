@@ -15,9 +15,7 @@ const Header = () => {
         spacing={2}
         marginY={2}
       >
-        <Link to="/app">
-          <Logo />
-        </Link>
+        <Logo />
         <ButtonGroup />
       </Stack>
       <Divider />

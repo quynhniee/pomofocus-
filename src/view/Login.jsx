@@ -3,14 +3,13 @@ import { grey } from "@mui/material/colors";
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
+import path from "../path";
 
 const Login = () => {
   return (
     <>
       <Stack alignItems="center">
-        <Link to="/">
-          <Logo size={40} />
-        </Link>
+        <Logo size={40} />
         <Typography
           color="#ffffffb3"
           fontSize={18}
@@ -60,7 +59,7 @@ const Login = () => {
         <Typography color="#fff" mt={3} mb={1} fontWeight="light">
           Do not have an account?
         </Typography>
-        <Link to="/signup">
+        <Link to={path.SIGNUP}>
           <Typography color="#fff" fontWeight="bold">
             Create account
           </Typography>
