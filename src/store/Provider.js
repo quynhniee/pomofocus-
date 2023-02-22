@@ -3,47 +3,48 @@ import TabsContext from "./Context";
 import { Alarm } from "../assets/sound/SoundData";
 
 const settingData = JSON.parse(localStorage.getItem("setting"));
-const setting =
-  settingData !== null
-    ? settingData
-    : {
-        tabs: [
-          {
-            name: "Pomodoro",
-            minute: 25,
-            second: 0,
-            themeColor: "#ba4949",
-            isActive: true,
-          },
-          {
-            name: "Short Break",
-            minute: 5,
-            second: 0,
-            themeColor: "#38858a",
-            isActive: false,
-          },
-          {
-            name: "Long Break",
-            minute: 10,
-            second: 0,
-            themeColor: "#397097",
-            isActive: false,
-          },
-        ],
-        autoStartBreak: false,
-        autoStartPomodoro: false,
-        longBreakInterval: 4,
-        autoSwitchTasks: false,
-        alarmSound: {
-          sound: Alarm,
-          volume: 0.5,
-        },
-        alarmSoundRepeat: 1,
-        tickingSound: {
-          sound: "none",
-          volume: 0.5,
-        },
-      };
+const settingDefault = require("./defaultSetting.json");
+console.log(settingDefault);
+const setting = settingData !== null ? settingData : settingDefault;
+// : {
+//     tabs: [
+//       {
+//         name: "Pomodoro",
+//         minute: 25,
+//         second: 0,
+//         themeColor: "#ba4949",
+//         isActive: true,
+//       },
+//       {
+//         name: "Short Break",
+//         minute: 5,
+//         second: 0,
+//         themeColor: "#38858a",
+//         isActive: false,
+//       },
+//       {
+//         name: "Long Break",
+//         minute: 10,
+//         second: 0,
+//         themeColor: "#397097",
+//         isActive: false,
+//       },
+//     ],
+//     autoStartBreak: false,
+//     autoStartPomodoro: false,
+//     longBreakInterval: 4,
+//     autoSwitchTasks: false,
+//     alarmSound: {
+//       sound:
+//         "/pomofocus-/static/media/clock-alarm-8761.6c19b7b9a533c76b395a.mp3",
+//       volume: 0.5,
+//     },
+//     alarmSoundRepeat: 1,
+//     tickingSound: {
+//       sound: "none",
+//       volume: 0.5,
+//     },
+//   };
 
 const Provider = ({ children }) => {
   const [autoStartBreak, setAutoStartBreak] = useState(setting.autoStartBreak);
