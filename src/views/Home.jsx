@@ -1,5 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
+import { getAllTask } from "../api";
 import CountDownBox from "../components/CountDown";
 import Header from "../components/Header/index";
 import Result from "../components/Result";
@@ -7,6 +8,7 @@ import TasksList from "../components/Task/index";
 
 const tasksData = JSON.parse(localStorage.getItem("tasks"));
 function Home() {
+  getAllTask().then((data) => console.log(data));
   const [tasks, setTasks] = useState(tasksData === null ? [] : tasksData);
   const [activeTab, setActiveTab] = useState(0);
   const defaultActiveItem = useCallback(() => {
