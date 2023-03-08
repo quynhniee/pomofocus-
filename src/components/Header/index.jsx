@@ -1,8 +1,8 @@
 import { Divider } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
-import ButtonGroup from "./Header/ButtonGroup";
-import Logo from "./Logo";
+import ButtonGroup from "./ButtonGroup";
+import Logo from "../Logo";
 
 const Header = () => {
   return (

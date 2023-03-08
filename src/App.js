@@ -1,18 +1,36 @@
 import { Container, Stack } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./view/Home";
+import React, { useContext, useEffect, useState, lazy, Suspense } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Context from "./store/Context";
-import Login from "./view/Login";
-import Signup from "./view/Signup";
 import path from "./path";
+import { useDispatch, useSelector } from "react-redux";
+import { useJwt } from "react-jwt";
+import { authAction } from "./redux/auth/auth";
+import { setHeader } from "./api";
+
+const Login = lazy(() => import("./views/Login"));
+const Signup = lazy(() => import("./views/Signup"));
+const Home = lazy(() => import("./views/Home"));
 
 const App = () => {
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const token = localStorage.getItem("token");
+  const { decodedToken, isExpired } = useJwt(token);
   const { currentThemeColor } = useContext(Context);
   const [themeColor, setThemeColor] = useState(currentThemeColor);
   useEffect(() => {
     setThemeColor(currentThemeColor);
   }, [currentThemeColor]);
+  useEffect(() => {
+    if (token && !isExpired) {
+      dispatch(authAction.login());
+      setHeader(token);
+    } else {
+      dispatch(authAction.logout());
+    }
+  }, [dispatch, isExpired, token]);
+
   return (
     <>
       <Stack
@@ -24,14 +42,28 @@ const App = () => {
         justifyContent="center"
       >
         <Container maxWidth="sm">
-          <BrowserRouter>
-            <Routes>
-              <Route index path={path.APP} element={<Home />}></Route>
-              <Route path={path.LOGIN} element={<Login />}></Route>
-              <Route path={path.SIGNUP} element={<Signup />}></Route>
-              <Route path={path.ROOT} element={<Home />}></Route>
-            </Routes>
-          </BrowserRouter>
+          <Suspense>
+            <BrowserRouter>
+              <Routes>
+                {!isAuth && isAuth !== null && (
+                  <Route path={path.LOGIN} element={<Login />} />
+                )}
+                {!isAuth && isAuth !== null && (
+                  <Route path={path.SIGNUP} element={<Signup />} />
+                )}
+                {!isAuth && isAuth !== null && (
+                  <Route
+                    path="*"
+                    element={<Navigate to={path.LOGIN} replace />}
+                  />
+                )}
+                {isAuth && <Route index path={path.APP} element={<Home />} />}
+                {isAuth && (
+                  <Route path="*" element={<Navigate to={path.APP} />} />
+                )}
+              </Routes>
+            </BrowserRouter>
+          </Suspense>
         </Container>
       </Stack>
     </>

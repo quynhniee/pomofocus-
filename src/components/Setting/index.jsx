@@ -1,17 +1,17 @@
 import { Button, Divider, Stack } from "@mui/material";
 import React, { useCallback, useContext, useState } from "react";
-import LightButton from "./LightButton";
+import LightButton from "../LightButton";
 import SettingsIcon from "@mui/icons-material/Settings";
-import LightTypography from "./LightTypography";
+import LightTypography from "../LightTypography";
 import { grey } from "@mui/material/colors";
-import TimerSetting from "./Setting/Timer";
-import TaskSetting from "./Setting/Task";
-import SoundSetting from "./Setting/Sound";
-import CloseButton from "./CloseButton";
-import { Text } from "./Setting/Components";
-import ThemeSetting from "./Setting/Theme";
-import Context from "../store/Context";
-import Modal from "./Modal";
+import TimerSetting from "./Timer";
+import TaskSetting from "./Task";
+import SoundSetting from "./Sound";
+import CloseButton from "../CloseButton";
+import { Text } from "./Components";
+import ThemeSetting from "./Theme";
+import Context from "../../store/Context";
+import Modal from "../Modal";
 import { useEffect } from "react";
 
 const SettingButton = () => {

@@ -6,11 +6,11 @@ import React, {
   useCallback,
   useRef,
 } from "react";
-import Context from "../store/Context";
-import CountDown from "./CountDown/CountDown";
-import SkipButton from "./CountDown/SkipButton";
-import Tab from "./CountDown/Tab";
-import TimerButton from "./CountDown/TimerButton";
+import Context from "../../store/Context";
+import CountDown from "./CountDown";
+import SkipButton from "./SkipButton";
+import Tab from "./Tab";
+import TimerButton from "./TimerButton";
 
 const CountDownBox = ({
   counter,

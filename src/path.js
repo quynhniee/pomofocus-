@@ -1,8 +1,7 @@
 const path = {
-  APP: "/pomofocus-/app",
-  LOGIN: "/pomofocus-/login",
-  SIGNUP: "/pomofocus-/signup",
-  ROOT: "pomofocus-/*",
+  LOGIN: "/auth/login",
+  SIGNUP: "/auth/signup",
+  APP: "/app",
 };
 
 export default path;

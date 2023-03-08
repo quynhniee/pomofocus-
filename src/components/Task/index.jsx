@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Stack, Typography, List, Divider } from "@mui/material";
 import { useState } from "react";
-import TaskMenu from "./Task/TaskMenu";
-import AddTaskButton from "./Task/AddTaskButton";
-import TaskItem from "./Task/TaskItem";
-import TaskCheckButton from "./Task/TaskCheckButton";
-import TaskCreator from "./Task/TaskCreator";
+import TaskMenu from "./TaskMenu";
+import AddTaskButton from "./AddTaskButton";
+import TaskItem from "./TaskItem";
+import TaskCheckButton from "./TaskCheckButton";
+import TaskCreator from "./TaskCreator";
 
 const TasksList = ({ tasks, getTasks }) => {
   const [expand, setExpand] = useState(false);

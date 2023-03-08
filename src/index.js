@@ -4,15 +4,21 @@ import "./index.css";
 import App from "./App";
 import CustomTheme from "./config/theme";
 import TabsProvider from "./store/Provider";
+import { Provider } from "react-redux";
+import store from "./redux/auth";
+import axios from "axios";
 
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CustomTheme>
-      <TabsProvider>
-        <App />
-      </TabsProvider>
-    </CustomTheme>
+    <Provider store={store}>
+      <CustomTheme>
+        <TabsProvider>
+          <App />
+        </TabsProvider>
+      </CustomTheme>
+    </Provider>
   </React.StrictMode>
 );
 

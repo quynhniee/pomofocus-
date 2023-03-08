@@ -1,39 +1,12 @@
 import { Stack, Typography } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
-import CountDownBox from "../components/CountDownBox";
-import Header from "../components/Header";
+import CountDownBox from "../components/CountDown";
+import Header from "../components/Header/index";
 import Result from "../components/Result";
-import TasksList from "../components/TasksList";
+import TasksList from "../components/Task/index";
 
 const tasksData = JSON.parse(localStorage.getItem("tasks"));
 function Home() {
-  // const [tasks, setTasks] = useState([
-  //   {
-  //     id: "12drrdasf",
-  //     content: "task 1",
-  //     isActive: true,
-  //     isCompleted: false,
-  //     act: 0,
-  //     EP: 1,
-  //   },
-  //   {
-  //     id: "adsfwiqwe8",
-  //     content: "task 2",
-  //     isActive: false,
-  //     isCompleted: false,
-  //     act: 1,
-  //     EP: 3,
-  //   },
-  //   {
-  //     id: "ad123qwe8",
-  //     content: "task 3",
-  //     isActive: false,
-  //     isCompleted: false,
-  //     act: 0,
-  //     EP: 2,
-  //   },
-  // ]);
-
   const [tasks, setTasks] = useState(tasksData === null ? [] : tasksData);
   const [activeTab, setActiveTab] = useState(0);
   const defaultActiveItem = useCallback(() => {
