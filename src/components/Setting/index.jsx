@@ -13,27 +13,10 @@ import ThemeSetting from "./Theme";
 import Context from "../../store/Context";
 import Modal from "../Modal";
 import { useEffect } from "react";
-import { updateSetting } from "../../api";
+import { putSetting } from "../../api";
 
 const SettingButton = () => {
-	const {
-		tabs,
-		updateTabs,
-		autoStartBreak,
-		autoStartPomodoro,
-		updateAutoStartBreak,
-		updateAutoStartPomodoro,
-		longBreakInterval,
-		updateLongBreakInterval,
-		autoSwitchTasks,
-		updateAutoSwitchTasks,
-		alarmSound,
-		updateAlarmSound,
-		tickingSound,
-		updateTickingSound,
-		alarmSoundRepeat,
-		updateAlarmSoundRepeat,
-	} = useContext(Context);
+	const { tabs, updateTabs, setting, updateSetting } = useContext(Context);
 	const pomodoro = tabs[0],
 		shortBreak = tabs[1],
 		longBreak = tabs[2];
@@ -41,44 +24,39 @@ const SettingButton = () => {
 	const [pomodoroMinute, setPomodoroMinute] = useState(pomodoro.minute);
 	const [shortBreakMinute, setShortBreakMinute] = useState(shortBreak.minute);
 	const [longBreakMinute, setLongBreakMinute] = useState(longBreak.minute);
-	const [startBreak, setStartBreak] = useState(autoStartBreak);
-	const [startPomodoro, setStartPomodoro] = useState(autoStartPomodoro);
-	const [breakInterval, setBreakInterval] = useState(longBreakInterval);
-	const [switchTasks, setSwitchTasks] = useState(autoSwitchTasks);
-	const [alarm, setAlarm] = useState(alarmSound);
-	const [alarmRepeat, setAlarmRepeat] = useState(alarmSoundRepeat);
-	const [ticking, setTicking] = useState(tickingSound);
-	const getPomodoroMinute = useCallback(
-		(data) => setPomodoroMinute(data),
-		[]
+	const [autoStartBreak, setAutoStartBreak] = useState(
+		setting.autoStartBreak
 	);
-	const getShortBreakMinute = useCallback(
-		(data) => setShortBreakMinute(data),
-		[]
+	const [autoStartPomodoro, setAutoStartPomodoro] = useState(
+		setting.autoStartPomodoro
 	);
-	const getLongBreakMinute = useCallback(
-		(data) => setLongBreakMinute(data),
-		[]
+	const [longBreakInterval, setLongBreakInterval] = useState(
+		setting.longBreakInterval
 	);
-	const toggleStartBreak = useCallback(
-		() => setStartBreak(!startBreak),
-		[startBreak]
+	const [autoSwitchTasks, setAutoSwitchTasks] = useState(
+		setting.autoSwitchTasks
 	);
-	const toggleStartPomodoro = useCallback(
-		() => setStartPomodoro(!startPomodoro),
-		[startPomodoro]
-	);
-	const getLongBreakInterval = useCallback(
-		(data) => setBreakInterval(data),
-		[]
-	);
-	const toggleSwitchTasks = useCallback(
-		() => setSwitchTasks(!switchTasks),
-		[switchTasks]
-	);
-	const getAlarmSound = useCallback((data) => setAlarm(data), []);
-	const getAlarmSoundRepeat = useCallback((data) => setAlarmRepeat(data), []);
-	const getTickingSound = useCallback((data) => setTicking(data), []);
+	const [alarmSound, setAlarmSound] = useState(setting.alarmSound);
+	const [alarmVolume, setAlarmVolume] = useState(setting.alarmVolume);
+	const [alarmRepeat, setAlarmRepeat] = useState(setting.alarmSoundRepeat);
+	const [tickingSound, setTickingSound] = useState(setting.tickingSound);
+	const [tickingVolume, setTickingVolume] = useState(setting.tickingVolume);
+	const getPomodoroMinute = ((data) => setPomodoroMinute(data), []);
+	const getShortBreakMinute = ((data) => setShortBreakMinute(data), []);
+	const getLongBreakMinute = ((data) => setLongBreakMinute(data), []);
+	const toggleStartBreak =
+		(() => setAutoStartBreak(!autoStartBreak), [autoStartBreak]);
+	const toggleStartPomodoro =
+		(() => setAutoStartPomodoro(!autoStartPomodoro), [autoStartPomodoro]);
+	const getLongBreakInterval =
+		(() => setLongBreakInterval(!longBreakInterval), [longBreakInterval]);
+	const toggleSwitchTasks =
+		(() => setAutoSwitchTasks(!autoSwitchTasks), [autoSwitchTasks]);
+	const getAlarmSound = ((data) => setAlarmSound(data), []);
+	const getAlarmVolume = ((data) => setAlarmVolume(data), []);
+	const getAlarmSoundRepeat = ((data) => setAlarmRepeat(data), []);
+	const getTickingSound = ((data) => setTickingSound(data), []);
+	const getTickingVolume = ((data) => setTickingVolume(data), []);
 
 	const openHandle = () => setOpen(true);
 	const closeHandle = () => setOpen(false);
@@ -89,47 +67,39 @@ const SettingButton = () => {
 			{ ...shortBreak, minute: shortBreakMinute },
 			{ ...longBreak, minute: longBreakMinute },
 		]);
-		updateAutoStartBreak(startBreak);
-		updateAutoStartPomodoro(startPomodoro);
-		updateLongBreakInterval(breakInterval);
-		updateAutoSwitchTasks(switchTasks);
-		updateAlarmSound(alarm);
-		updateTickingSound(ticking);
-		updateAlarmSoundRepeat(alarmRepeat);
+		updateSettingStorage();
 		setOpen(false);
 	};
 
 	const updateSettingStorage = () => {
-		const setting = {
+		const _setting = {
 			autoStartBreak,
 			autoStartPomodoro,
 			longBreakInterval,
 			autoSwitchTasks,
-			alarmSound: alarmSound.sound,
-			alarmVolume: alarmSound.volume,
-			alarmSoundRepeat,
-			tickingSound: tickingSound.sound,
-			tickingVolume: tickingSound.volume,
+			alarmSound,
+			alarmVolume,
+			alarmRepeat,
+			tickingSound,
+			tickingVolume,
 		};
-		updateSetting(setting);
+		putSetting(_setting);
+		updateSetting(_setting);
 	};
 
 	useEffect(() => {
-		updateSettingStorage();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [saveHandle]);
-
-	useEffect(() => {
-		setStartBreak(autoStartBreak);
-		setStartPomodoro(autoStartPomodoro);
+		setAutoStartBreak(setting.autoStartBreak);
+		setAutoStartPomodoro(setting.autoStartPomodoro);
 		setPomodoroMinute(pomodoro.minute);
 		setLongBreakMinute(longBreak.minute);
 		setShortBreakMinute(shortBreak.minute);
-		setSwitchTasks(autoSwitchTasks);
-		setBreakInterval(longBreakInterval);
-		setAlarm(alarmSound);
-		setAlarmRepeat(alarmSoundRepeat);
-		setTicking(tickingSound);
+		setAutoSwitchTasks(setting.autoSwitchTasks);
+		setLongBreakInterval(setting.longBreakInterval);
+		setAlarmSound(setting.alarmSound);
+		setAlarmVolume(setting.alarmVolume);
+		setAlarmRepeat(setting.alarmRepeat);
+		setTickingSound(setting.tickingSound);
+		setTickingVolume(setting.tickingVolume);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [open]);
 
@@ -158,6 +128,9 @@ const SettingButton = () => {
 						toggleStartBreak={toggleStartBreak}
 						toggleStartPomodoro={toggleStartPomodoro}
 						getLongBreakInterval={getLongBreakInterval}
+						longBreakInterval={longBreakInterval}
+						autoStartBreak={autoStartBreak}
+						autoStartPomodoro={autoStartPomodoro}
 					/>
 					<Divider />
 					<TaskSetting
@@ -166,10 +139,14 @@ const SettingButton = () => {
 					/>
 					<Divider />
 					<SoundSetting
-						alarm={alarm}
+						alarmSound={alarmSound}
+						alarmVolume={alarmVolume}
 						getAlarmSound={getAlarmSound}
-						ticking={ticking}
+						getAlarmVolume={getAlarmVolume}
+						tickingSound={tickingSound}
+						tickingVolume={tickingVolume}
 						getTickingSound={getTickingSound}
+						getTickingVolume={getTickingVolume}
 						alarmRepeat={alarmRepeat}
 						getAlarmSoundRepeat={getAlarmSoundRepeat}
 					/>

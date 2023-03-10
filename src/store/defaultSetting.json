@@ -3,8 +3,8 @@
 	"autoStartPomodoro": false,
 	"longBreakInterval": 4,
 	"autoSwitchTasks": false,
-	"alarmSound": "https://kekkekew-my.sharepoint.com/:u:/g/personal/sirq_kekkekew_onmicrosoft_com/EQgCDM8kNaBGvW60kQIPjRcBdg5EiIukb8jFtLJV9LXTSg?e=W9nsee",
-	"alrmVolume": 0.5,
+	"alarmSound": "/pomofocus-/static/media/dog-sound.68a11d6805471469a5ea.wav",
+	"alarmVolume": 0.5,
 	"alarmSoundRepeat": 1,
 	"tickingSound": "none",
 	"tickingVolume": 0.5

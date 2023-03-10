@@ -31,7 +31,9 @@ const CountDownBox = ({
 		currentThemeColor,
 		updateCurrentThemeColor,
 		tickingSound,
+		tickingVolume,
 		alarmSound,
+		alarmVolume,
 		alarmSoundRepeat,
 	} = useContext(Context);
 	const [active, setActive] = useState(
@@ -40,11 +42,11 @@ const CountDownBox = ({
 	const [minute, setMinute] = useState(tabs[activeTab].minute);
 	const [second, setSecond] = useState(tabs[activeTab].second);
 
-	let alarm = useRef(new Audio(alarmSound.sound));
-	alarm.current.volume = alarmSound.volume;
-	let ticking = useRef(new Audio(tickingSound.sound));
+	let alarm = useRef(new Audio(alarmSound));
+	alarm.current.alarmVolume = alarmVolume;
+	let ticking = useRef(new Audio(tickingSound));
 	ticking.current.loop = true;
-	ticking.current.volume = tickingSound.volume;
+	ticking.current.tickingVolume = tickingVolume;
 
 	const getActive = useCallback((data) => {
 		setActive(data);
@@ -123,11 +125,20 @@ const CountDownBox = ({
 	}, [activeTab, tabs, updateCurrentThemeColor]);
 
 	useEffect(() => {
-		ticking.current.src = tickingSound.sound;
-		ticking.current.volume = tickingSound.volume;
-		alarm.current.src = alarmSound.sound;
-		alarm.current.volume = alarmSound.volume;
-	}, [tickingSound, alarmSound]);
+		ticking.current.src = tickingSound;
+	}, [tickingSound]);
+
+	useEffect(() => {
+		ticking.current.tickingVolume = tickingVolume;
+	}, [tickingVolume]);
+
+	useEffect(() => {
+		alarm.current.src = alarmSound;
+	}, [alarmSound]);
+
+	useEffect(() => {
+		alarm.current.alarmVolume = alarmVolume;
+	}, [alarmVolume]);
 
 	useEffect(() => {
 		if (active === true && activeTab === 0) {
