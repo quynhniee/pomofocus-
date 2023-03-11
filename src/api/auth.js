@@ -8,7 +8,6 @@ export const setHeader = (token) => {
 export const login = async (value) => {
 	try {
 		const response = await axios.post("auth/login", value);
-		console.log(response);
 		localStorage.setItem("token", response.data.token);
 		return response;
 	} catch (error) {

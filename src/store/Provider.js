@@ -2,10 +2,10 @@ import React, { useCallback, useState, useEffect } from "react";
 import { getSetting, getTabs } from "../api/setting";
 import TabsContext from "./Context";
 
-const Provider = ({ children }) => {
-	const settingDefault = require("./defaultSetting.json");
-	const tabsDefault = require("./defaultTabs.json");
+const settingDefault = require("./defaultSetting.json");
+const tabsDefault = require("./defaultTabs.json");
 
+const Provider = ({ children }) => {
 	const [setting, setSetting] = useState(settingDefault);
 	const updateSetting = useCallback((data) => setSetting(data), []);
 	const [tabs, setTabs] = useState(tabsDefault);
@@ -16,11 +16,13 @@ const Provider = ({ children }) => {
 	);
 
 	useEffect(() => {
-		getSetting()
-			.then((res) => res.data)
-			.then((data) => {
-				if (data) setSetting(data);
-			});
+		setTimeout(() => {
+			getSetting()
+				.then((res) => res.data)
+				.then((data) => {
+					if (data) setSetting(data);
+				});
+		}, 2000);
 	}, []);
 
 	useEffect(() => {

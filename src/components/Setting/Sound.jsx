@@ -17,20 +17,15 @@ import {
 } from "../../assets/sound/SoundData";
 
 const Sound = ({
-	alarmSound,
-	getAlarmSound,
-	alarmVolume,
-	getAlarmVolume,
-	tickingSound,
-	getTickingSound,
-	tickingVolume,
-	getTickingVolume,
-	alarmRepeat,
-	getAlarmSoundRepeat,
+	alarm,
+	setAlarm,
+	ticking,
+	setTicking,
+	alarmSoundRepeat,
+	setAlarmSoundRepeat,
 }) => {
-	console.log(alarmRepeat);
-	const alarmAudioRef = useRef(new Audio(alarmSound));
-	const tickingAudioRef = useRef(new Audio(tickingSound));
+	const alarmAudioRef = useRef(new Audio(alarm.sound));
+	const tickingAudioRef = useRef(new Audio(ticking.sound));
 
 	const alarmSounds = [
 		{ name: "Kitty", sound: Kitty },
@@ -59,11 +54,11 @@ const Sound = ({
 		alarmAudioRef.current.play();
 	};
 	const changeAlarmVolumeHandle = (value) => {
-		getAlarmVolume(value);
+		setAlarm.volume(value);
 		playAlarmSound(null, value);
 	};
 	const changeAlarmSoundHandle = (e) => {
-		getAlarmSound(e.target.value);
+		setAlarm.sound(e.target.value);
 		playAlarmSound(e.target.value);
 	};
 
@@ -82,12 +77,12 @@ const Sound = ({
 			});
 	};
 	const changeTickingVolumeHandle = (value) => {
-		getTickingVolume(value);
+		setTicking.volume(value);
 		playTickingSound(null, value);
 	};
 	const changeTickingSoundHandle = (e) => {
 		const _tickingSound = e.target.value;
-		getTickingSound(_tickingSound);
+		setTicking.sound(_tickingSound);
 		playTickingSound(_tickingSound);
 	};
 
@@ -101,7 +96,7 @@ const Sound = ({
 				<ListItem>
 					<Text>Alarm Sound</Text>
 					<Select
-						defaultValue={alarmSound}
+						defaultValue={alarm.sound}
 						sx={{ border: "none", width: 130 }}
 						onChange={changeAlarmSoundHandle}
 					>
@@ -114,7 +109,7 @@ const Sound = ({
 				</ListItem>
 				<ListItem>
 					<CustomSlider
-						defaultValue={alarmVolume}
+						defaultValue={alarm.volume}
 						changeVolume={changeAlarmVolumeHandle}
 					/>
 				</ListItem>
@@ -128,11 +123,11 @@ const Sound = ({
 							min: 0,
 							type: "number",
 						}}
-						defaultValue={alarmRepeat}
+						defaultValue={alarmSoundRepeat}
 						disableUnderline
 						sx={{ width: 55 }}
 						onChange={(e) => {
-							getAlarmSoundRepeat(+e.target.value);
+							setAlarmSoundRepeat(+e.target.value);
 						}}
 					/>
 				</ListItem>
@@ -141,7 +136,7 @@ const Sound = ({
 				<ListItem>
 					<Text>Ticking Sound</Text>
 					<Select
-						defaultValue={tickingSound}
+						defaultValue={ticking.sound}
 						sx={{ border: "none", width: 130 }}
 						onChange={changeTickingSoundHandle}
 					>
@@ -154,7 +149,7 @@ const Sound = ({
 				</ListItem>
 				<ListItem>
 					<CustomSlider
-						defaultValue={tickingVolume}
+						defaultValue={ticking.volume}
 						changeVolume={changeTickingVolumeHandle}
 					/>
 				</ListItem>
