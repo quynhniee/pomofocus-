@@ -10,14 +10,14 @@ const Context = createContext({
 			isActive: null,
 		},
 	],
-	updateTabs: () => {},
+	setTabs: () => {},
+	currentThemeColor: null,
+	setCurrentThemeColor: () => {},
 	setting: null,
-	updateSetting: () => {},
+	setSetting: () => {},
+	updateLongBreak: () => {},
 	updatePomodoro: () => {},
 	updateShortBreak: () => {},
-	updateLongBreak: () => {},
-	currentThemeColor: null,
-	updateCurrentThemeColor: () => {},
 });
 
 export default Context;

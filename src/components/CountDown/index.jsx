@@ -21,21 +21,21 @@ const CountDownBox = ({
 	tasks,
 	getTasks,
 }) => {
+	const { tabs, setTabs, setting, currentThemeColor, setCurrentThemeColor } =
+		useContext(Context);
+
 	const {
-		tabs,
-		updateTabs,
 		autoStartBreak,
 		autoStartPomodoro,
-		longBreakInterval,
 		autoSwitchTasks,
-		currentThemeColor,
-		updateCurrentThemeColor,
+		longBreakInterval,
 		tickingSound,
 		tickingVolume,
 		alarmSound,
 		alarmVolume,
 		alarmSoundRepeat,
-	} = useContext(Context);
+	} = setting;
+
 	const [active, setActive] = useState(
 		activeTab === 0 ? autoStartPomodoro : autoStartBreak
 	);
@@ -88,7 +88,7 @@ const CountDownBox = ({
 			getTasks(updateItemAct());
 			if ((counter + 1) % longBreakInterval === 0) {
 				getActiveTab(2);
-				updateTabs(
+				setTabs(
 					tabs.map((tab, index) =>
 						index === 2
 							? { ...tab, isActive: true }
@@ -97,7 +97,7 @@ const CountDownBox = ({
 				);
 			} else {
 				getActiveTab(1);
-				updateTabs(
+				setTabs(
 					tabs.map((tab, index) =>
 						index === 1
 							? { ...tab, isActive: true }
@@ -108,7 +108,7 @@ const CountDownBox = ({
 		} else {
 			getActive(autoStartPomodoro);
 			getActiveTab(0);
-			updateTabs(
+			setTabs(
 				tabs.map((tab, index) =>
 					index === 0
 						? { ...tab, isActive: true }
@@ -121,8 +121,8 @@ const CountDownBox = ({
 	useEffect(() => {
 		setMinute(tabs[activeTab].minute);
 		setSecond(tabs[activeTab].second);
-		updateCurrentThemeColor(tabs[activeTab].themeColor);
-	}, [activeTab, tabs, updateCurrentThemeColor]);
+		setCurrentThemeColor(tabs[activeTab].themeColor);
+	}, [activeTab, tabs, setCurrentThemeColor]);
 
 	useEffect(() => {
 		ticking.current.src = tickingSound;
