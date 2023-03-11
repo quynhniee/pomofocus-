@@ -145,7 +145,7 @@ const SettingButton = () => {
 		setTickingSound(setting.tickingSound);
 		setTickingVolume(setting.tickingVolume);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [open]);
+	}, [setting]);
 
 	return (
 		<div>

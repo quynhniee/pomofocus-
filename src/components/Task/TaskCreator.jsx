@@ -28,6 +28,7 @@ const TaskCreator = ({ getExpand, task, tasks, getTasks }) => {
 		if (newTask.content.trim() === "") return;
 		if (task) {
 			getTasks(tasks.map((t) => (t.id === taskUpdate.id ? newTask : t)));
+			console.log(updateTask(task.id));
 			updateTask(task.id);
 		} else {
 			getTasks(tasks.concat([newTask]));
