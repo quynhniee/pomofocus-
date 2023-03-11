@@ -31,9 +31,9 @@ export const deleteTask = async (taskId) => {
 };
 
 // Update task
-export const updateTask = async (taskId) => {
+export const updateTask = async (taskId, data) => {
   try {
-    const response = await axios.put(`/task/${taskId}`);
+    const response = await axios.put(`/task/${taskId}`, data);
     return response;
   } catch (error) {
     console.log(error);
