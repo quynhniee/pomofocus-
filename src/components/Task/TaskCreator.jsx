@@ -25,13 +25,19 @@ const TaskCreator = ({ getExpand, task, tasks, getTasks }) => {
   const saveHandle = () => {
     const newTask = { ...taskUpdate, content: content };
     if (newTask.content.trim() === "") return;
-    if (task)
+    if (task) {
       getTasks(tasks.map((t) => (t.id === taskUpdate.id ? newTask : t)));
-    else getTasks(tasks.concat([newTask]));
+      console.log(updateTask(task.id));
+      updateTask(task.id, newTask);
+    } else {
+      getTasks(tasks.concat([newTask]));
+      addTask({ ...newTask });
+    }
     getExpand(false);
   };
   const removeHandle = () => {
     getTasks(tasks.filter((t) => t.id !== task.id));
+    deleteTask(task.id);
   };
   return (
     <Card

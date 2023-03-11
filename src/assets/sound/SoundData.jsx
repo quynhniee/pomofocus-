@@ -10,14 +10,14 @@ import Totoro from "./TickingSound/MyNeighborTotoro.mp3";
 import Ponyo from "./TickingSound/PonyoOnTheCliffByTheSea.mp3";
 
 export {
-  Kitty,
-  Dog,
-  Alarm,
-  Digital,
-  FastTicking,
-  SlowTicking,
-  CannonInD,
-  SnowFlower,
-  Totoro,
-  Ponyo,
+	Kitty,
+	Dog,
+	Alarm,
+	Digital,
+	FastTicking,
+	SlowTicking,
+	CannonInD,
+	SnowFlower,
+	Totoro,
+	Ponyo,
 };

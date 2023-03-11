@@ -6,6 +6,7 @@ import React, {
   useCallback,
   useRef,
 } from "react";
+import { updateTask } from "../../api";
 import Context from "../../store/Context";
 import CountDown from "./CountDown";
 import SkipButton from "./SkipButton";
@@ -21,30 +22,32 @@ const CountDownBox = ({
   tasks,
   getTasks,
 }) => {
+  const { tabs, setTabs, setting, currentThemeColor, setCurrentThemeColor } =
+    useContext(Context);
+
   const {
-    tabs,
-    updateTabs,
     autoStartBreak,
     autoStartPomodoro,
-    longBreakInterval,
     autoSwitchTasks,
-    currentThemeColor,
-    updateCurrentThemeColor,
+    longBreakInterval,
     tickingSound,
+    tickingVolume,
     alarmSound,
+    alarmVolume,
     alarmSoundRepeat,
-  } = useContext(Context);
+  } = setting;
+
   const [active, setActive] = useState(
     activeTab === 0 ? autoStartPomodoro : autoStartBreak
   );
   const [minute, setMinute] = useState(tabs[activeTab].minute);
   const [second, setSecond] = useState(tabs[activeTab].second);
 
-  let alarm = useRef(new Audio(alarmSound.sound));
-  alarm.current.volume = alarmSound.volume;
-  let ticking = useRef(new Audio(tickingSound.sound));
+  let alarm = useRef(new Audio(alarmSound));
+  alarm.current.alarmVolume = alarmVolume;
+  let ticking = useRef(new Audio(tickingSound));
   ticking.current.loop = true;
-  ticking.current.volume = tickingSound.volume;
+  ticking.current.tickingVolume = tickingVolume;
 
   const getActive = useCallback((data) => {
     setActive(data);
@@ -52,6 +55,7 @@ const CountDownBox = ({
 
   function updateItemAct() {
     let newItem = { ...activeItem, act: activeItem.act + 1 };
+    updateTask(activeItem.id, newItem);
     let newTasks = tasks.map((task) =>
       task.id === activeItem.id ? newItem : task
     );
@@ -86,7 +90,7 @@ const CountDownBox = ({
       getTasks(updateItemAct());
       if ((counter + 1) % longBreakInterval === 0) {
         getActiveTab(2);
-        updateTabs(
+        setTabs(
           tabs.map((tab, index) =>
             index === 2
               ? { ...tab, isActive: true }
@@ -95,7 +99,7 @@ const CountDownBox = ({
         );
       } else {
         getActiveTab(1);
-        updateTabs(
+        setTabs(
           tabs.map((tab, index) =>
             index === 1
               ? { ...tab, isActive: true }
@@ -106,7 +110,7 @@ const CountDownBox = ({
     } else {
       getActive(autoStartPomodoro);
       getActiveTab(0);
-      updateTabs(
+      setTabs(
         tabs.map((tab, index) =>
           index === 0 ? { ...tab, isActive: true } : { ...tab, isActive: false }
         )
@@ -117,15 +121,24 @@ const CountDownBox = ({
   useEffect(() => {
     setMinute(tabs[activeTab].minute);
     setSecond(tabs[activeTab].second);
-    updateCurrentThemeColor(tabs[activeTab].themeColor);
-  }, [activeTab, tabs, updateCurrentThemeColor]);
+    setCurrentThemeColor(tabs[activeTab].themeColor);
+  }, [activeTab, tabs, setCurrentThemeColor]);
 
   useEffect(() => {
-    ticking.current.src = tickingSound.sound;
-    ticking.current.volume = tickingSound.volume;
-    alarm.current.src = alarmSound.sound;
-    alarm.current.volume = alarmSound.volume;
-  }, [tickingSound, alarmSound]);
+    ticking.current.src = tickingSound;
+  }, [tickingSound]);
+
+  useEffect(() => {
+    ticking.current.tickingVolume = tickingVolume;
+  }, [tickingVolume]);
+
+  useEffect(() => {
+    alarm.current.src = alarmSound;
+  }, [alarmSound]);
+
+  useEffect(() => {
+    alarm.current.alarmVolume = alarmVolume;
+  }, [alarmVolume]);
 
   useEffect(() => {
     if (active === true && activeTab === 0) {

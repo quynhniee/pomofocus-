@@ -1,16 +1,15 @@
 import CheckIcon from "@mui/icons-material/Check";
 import { IconButton, ListItemText, Typography } from "@mui/material";
 import React, { useContext } from "react";
+import { updateTask } from "../../api";
 import Context from "../../store/Context";
 
 const TaskCheckButton = ({ tasks, getTasks, task }) => {
   const clickHandle = (e) => {
     e.stopPropagation();
-    getTasks(
-      tasks.map((t) =>
-        t.id === task.id ? { ...task, isCompleted: !task.isCompleted } : t
-      )
-    );
+    const newTask = { ...task, isCompleted: !task.isCompleted };
+    getTasks(tasks.map((t) => (t.id === task.id ? newTask : t)));
+    updateTask(task.id, newTask);
   };
   const { currentThemeColor } = useContext(Context);
   return (
